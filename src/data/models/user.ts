@@ -104,4 +104,51 @@ export class User {
     set campus(value: Campus) {
         this._campus = value;
     }
+
+    toJson(): string {
+        return JSON.stringify({
+            userId: this._userId,
+            firstName: this._firstName,
+            lastName: this._lastName,
+            phoneNumber: this._phoneNumber,
+            dateOfBirth: this._dateOfBirth,
+            email: this._email,
+            password: this._password,
+            college: this._college.toJson(),
+            location: this._location.toJson(),
+            campus: this._campus.toJson()
+        });
+    }
+
+    static fromJson(jsonString: string): User {
+        const obj = JSON.parse(jsonString);
+        const college = College.fromJson(JSON.stringify(obj.college));
+        const location = Location.fromJson(JSON.stringify(obj.location));
+        const campus = Campus.fromJson(JSON.stringify(obj.campus));
+
+        return new User(
+            obj.userId,
+            obj.firstName,
+            obj.lastName,
+            obj.phoneNumber,
+            obj.dateOfBirth,
+            obj.email,
+            obj.password,
+            college,
+            location,
+            campus
+        );
+    }
+
+    toString(): string {
+        return `User Information:
+        User ID: ${this._userId}
+        Name: ${this._firstName} ${this._lastName}
+        Phone Number: ${this._phoneNumber}
+        Date of Birth: ${this._dateOfBirth}
+        Email: ${this._email}
+        College: ${this._college.toString()}
+        Location: ${this._location.toString()}
+        Campus: ${this._campus.toString()}`;
+    }
 }

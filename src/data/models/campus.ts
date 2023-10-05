@@ -1,4 +1,5 @@
 import {College} from "./college";
+import {Location} from "./location";
 
 export class Campus {
     campusId: bigint;
@@ -38,7 +39,24 @@ export class Campus {
         this._location = value;
     }
 
-    toString(){
-        return "";
+    toJson(): string {
+        return JSON.stringify({
+            campusId: this.campusId,
+            campusName: this._campusName,
+            college: this._college.toJson(),
+            location: this._location.toJson()
+        });
     }
+
+    static fromJson(jsonString: string): Campus {
+        const obj = JSON.parse(jsonString);
+        const college = College.fromJson(JSON.stringify(obj.college));
+        const location = Location.fromJson(JSON.stringify(obj.location));
+        return new Campus(obj.campusId, obj.campusName, college, location);
+    }
+
+    toString(){
+        return `CampusId: ${this.campusId}, CampusName: ${this._campusName}, College: ${this._college.toString()}, Location: ${this._location.toString()}`;
+    }
+
 }

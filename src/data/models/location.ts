@@ -32,4 +32,17 @@ export class Location{
     toString(){
         return "city:"+ this._city + ", country:" + this._country;
     }
+
+    toJson(): string {
+        return JSON.stringify({
+            locationId: this.locationId,
+            city: this._city,
+            country: this._country
+        });
+    }
+
+    static fromJson(jsonString: string): Location {
+        const obj = JSON.parse(jsonString);
+        return new Location(obj.locationId, obj.city, obj.country);
+    }
 }

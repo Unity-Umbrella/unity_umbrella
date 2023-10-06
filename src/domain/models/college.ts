@@ -1,9 +1,9 @@
 export class College {
-    collegeId: bigint;
+    collegeId: number;
     private _collegeName: string;
 
 
-    constructor(collegeId: bigint, collegeName: string) {
+    constructor(collegeId: number, collegeName: string) {
         this.collegeId = collegeId;
         this._collegeName = collegeName;
     }

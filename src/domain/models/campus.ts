@@ -2,12 +2,12 @@ import {College} from "./college";
 import {Location} from "./location";
 
 export class Campus {
-    campusId: bigint;
+    campusId: number;
     private _campusName: string;
     private _college: College;
     private _location: Location;
 
-    constructor(campusId: bigint, campusName: string, college: College, location: Location) {
+    constructor(campusId: number, campusName: string, college: College, location: Location) {
         this.campusId = campusId;
         this._campusName = campusName;
         this._college = college;

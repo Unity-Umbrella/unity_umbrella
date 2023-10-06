@@ -3,7 +3,7 @@ import {Location} from "./location";
 import {Campus} from "./campus";
 
 export class User {
-    private readonly _userId: bigint;
+    private readonly _userId: number;
     private _firstName: string;
     private _lastName: string;
     private _phoneNumber: number;
@@ -15,7 +15,7 @@ export class User {
     private _campus: Campus;
 
 
-    constructor(userId: bigint, firstName: string, lastName: string, phoneNumber: number, dateOfBirth: string, email: string, password: string, college: College, location: Location, campus: Campus) {
+    constructor(userId: number, firstName: string, lastName: string, phoneNumber: number, dateOfBirth: string, email: string, password: string, college: College, location: Location, campus: Campus) {
         this._userId = userId;
         this._firstName = firstName;
         this._lastName = lastName;
@@ -29,7 +29,7 @@ export class User {
     }
 
 
-    get userId(): bigint {
+    get userId(): number {
         return this._userId;
     }
 

@@ -1,12 +1,12 @@
 
 
 export class Location{
-    locationId: bigint;
+    locationId: number;
     private _city: string;
     private _country: string;
 
 
-    constructor(locationId: bigint, city: string, country: string) {
+    constructor(locationId: number, city: string, country: string) {
         this.locationId = locationId;
         this._city = city;
         this._country = country;

@@ -8,8 +8,7 @@ export class UserUseCase{
         this.userRepository = userRepository ?? new UserRepository();
     }
     async getAllUsers(): Promise<User[]>{
-        const users =  await this.userRepository.getAllUsers();
-        return users;
+        return await this.userRepository.getAllUsers();
     }
     async addUser(user: User): Promise<boolean>{
         return this.userRepository.addUser(user);

@@ -15,6 +15,8 @@ const Header: React.FC = () => {
                 </Typography>
                 <Button color="inherit" component={Link} to="/">Home</Button>
                 <Button color="inherit" component={Link} to="/student-directory">Students Directory</Button>
+                <Button color="inherit" component={Link} to="/house-listing">House Listing</Button>
+                <Button color="inherit" component={Link} to="/Login">Login</Button>
                 <Button color="inherit" component={Link} to="/contact-us">Contact</Button>
                 <Button color="inherit" component={Link} to="/about-us">About Us</Button>
             </Toolbar>

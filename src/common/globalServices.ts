@@ -1,5 +1,5 @@
-import {UserAPI} from "../services/ServerApi/userAPI";
+import {DummyUserApi, UserAPI} from "../services/ServerApi/userAPI";
 
 export class GlobalServices{
-    public static userApi = new UserAPI();
+    public static userApi = new DummyUserApi();
 }

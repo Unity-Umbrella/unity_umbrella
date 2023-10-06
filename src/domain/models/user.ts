@@ -10,17 +10,19 @@ export class User {
     private _dateOfBirth: string;
     private _email: string;
     private _password: string;
+    private _image: string;
     private _college: College;
     private _location: Location;
     private _campus: Campus;
 
 
-    constructor(userId: number, firstName: string, lastName: string, phoneNumber: number, dateOfBirth: string, email: string, password: string, college: College, location: Location, campus: Campus) {
+    constructor(userId: number, firstName: string, lastName: string, phoneNumber: number, dateOfBirth: string, email: string, password: string, image: string, college: College, location: Location, campus: Campus) {
         this._userId = userId;
         this._firstName = firstName;
         this._lastName = lastName;
         this._phoneNumber = phoneNumber;
         this._dateOfBirth = dateOfBirth;
+        this._image = image;
         this._email = email;
         this._password = password;
         this._college = college;
@@ -105,6 +107,14 @@ export class User {
         this._campus = value;
     }
 
+    get image(): string {
+        return this._image;
+    }
+
+    set image(value: string) {
+        this._image = value;
+    }
+
     toJson(): string {
         return JSON.stringify({
             userId: this._userId,
@@ -114,6 +124,7 @@ export class User {
             dateOfBirth: this._dateOfBirth,
             email: this._email,
             password: this._password,
+            image: this._image,
             college: this._college.toJson(),
             location: this._location.toJson(),
             campus: this._campus.toJson()
@@ -132,6 +143,7 @@ export class User {
             obj.lastName,
             obj.phoneNumber,
             obj.dateOfBirth,
+            obj.image,
             obj.email,
             obj.password,
             college,
@@ -147,6 +159,7 @@ export class User {
         Phone Number: ${this._phoneNumber}
         Date of Birth: ${this._dateOfBirth}
         Email: ${this._email}
+        Image: ${this._image}
         College: ${this._college.toString()}
         Location: ${this._location.toString()}
         Campus: ${this._campus.toString()}`;

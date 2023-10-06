@@ -56,6 +56,7 @@ export const dummyCollege = new College(1, "Conestoga College");
 export const dummyLocation = new Location(1,"Waterloo","Canada");
 export const dummyCampus = new Campus(1, "Waterloo Campus", dummyCollege, dummyLocation);
 export const dummyUsers = [
-    new User(1, "Bhumil", "Patel", 1234567890, "06-10-2000", "bhumil0610@gmai.com", "password", dummyCollege, dummyLocation, dummyCampus),
+    new User(1, "Bhumil", "Patel", 1234567890, "06-10-2000", "bhumil0610@gmail.com", "password","https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375_640.png", dummyCollege, dummyLocation, dummyCampus),
+    new User(1, "John", "Doe", 1234567809, "05-11-2000", "test1234@gmail.com", "password","https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg", dummyCollege, dummyLocation, dummyCampus),
 ]
 

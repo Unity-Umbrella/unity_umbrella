@@ -6,7 +6,6 @@ import Footer from "../../components/Footer/Footer";
 function Home() {
     return (
         <>
-            <Header /> {/* Include the Header component */}
             <Container maxWidth="md" sx={{ textAlign: 'center', paddingTop: 8, paddingBottom: 8 }}>
                 <Typography variant="h2" component="h1" gutterBottom>
                     Welcome to Unity Umbrella!

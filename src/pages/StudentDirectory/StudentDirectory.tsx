@@ -7,9 +7,12 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
+import SortComponent from "../../components/Sort/Sort";
+import {StudentFilter} from "../../common/enums";
 
 const StudentDirectory: React.FC = () => {
     const [students, setStudents] = useState<User[]>([]);
+    const filters = [StudentFilter.College,StudentFilter.DateOfBirth,StudentFilter.Email,StudentFilter.FirstName,StudentFilter.LastName];
     const userUseCase = new UserUseCase();
 
     const fetchUsers = async () => {
@@ -17,10 +20,16 @@ const StudentDirectory: React.FC = () => {
         console.log(studentsList);
         setStudents(studentsList);
     }
+
+    const handleSortChange = async (filterValue: string) => {
+        const sortedStudents = await userUseCase.sortUser(filterValue);
+        setStudents(sortedStudents);
+    };
     useEffect(() => {
         fetchUsers().then(r => true);
     }, []);
     return <>
+        <SortComponent options={filters} onSortChange={handleSortChange}/>
         <List sx={{width: '100%', bgcolor: 'background.paper'}}>
             {students.map(student => (
                 <><ListItem alignItems="flex-start" button={true}>

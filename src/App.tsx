@@ -7,6 +7,7 @@ import Header from "./components/Header/Header";
 import StudentDirectory from "./pages/StudentDirectory/StudentDirectory";
 import HouseListing from './pages/HouseListing/HouseListing';
 import LoginPage from "./pages/Login/Login";
+import RegistrationPage from './pages/Registration/Registration';
 
 
 const theme = createTheme();
@@ -21,6 +22,8 @@ function App() {
                   <Route path="/student-directory" element={<StudentDirectory/>}/>
                   <Route path="/house-listing" element={<HouseListing/>}/>
                   <Route path="/login" element={<LoginPage/>}/>
+                  <Route path="/registration" element={<RegistrationPage/>}/>
+                  
                   {/* Add more routes as needed */}
               </Routes>
           </div>

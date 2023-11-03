@@ -14,9 +14,10 @@ export class User {
     private _college: College;
     private _location: Location;
     private _campus: Campus;
+    private _ratings: number;
 
 
-    constructor(userId: number, firstName: string, lastName: string, phoneNumber: number, dateOfBirth: string, email: string, password: string, image: string, college: College, location: Location, campus: Campus) {
+    constructor(userId: number, firstName: string, lastName: string, phoneNumber: number, dateOfBirth: string, email: string, password: string, image: string, college: College, location: Location, campus: Campus, ratings: number) {
         this._userId = userId;
         this._firstName = firstName;
         this._lastName = lastName;
@@ -28,6 +29,7 @@ export class User {
         this._college = college;
         this._location = location;
         this._campus = campus;
+        this._ratings = ratings;
     }
 
 
@@ -115,6 +117,15 @@ export class User {
         this._image = value;
     }
 
+
+    get ratings(): number {
+        return this._ratings;
+    }
+
+    set ratings(value: number) {
+        this._ratings = value;
+    }
+
     toJson(): string {
         return JSON.stringify({
             userId: this._userId,
@@ -127,7 +138,8 @@ export class User {
             image: this._image,
             college: this._college.toJson(),
             location: this._location.toJson(),
-            campus: this._campus.toJson()
+            campus: this._campus.toJson(),
+            ratings: this._ratings
         });
     }
 
@@ -148,7 +160,8 @@ export class User {
             obj.password,
             college,
             location,
-            campus
+            campus,
+            obj.ratings,
         );
     }
 
@@ -162,6 +175,7 @@ export class User {
         Image: ${this._image}
         College: ${this._college.toString()}
         Location: ${this._location.toString()}
-        Campus: ${this._campus.toString()}`;
+        Campus: ${this._campus.toString()}
+        Ratings: ${this._ratings}`;
     }
 }

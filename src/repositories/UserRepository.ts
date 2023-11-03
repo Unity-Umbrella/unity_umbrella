@@ -25,6 +25,10 @@ export class UserRepository {
         return this.apiService.fetchAllUsers();
     }
 
+    async getUserById(userId: number): Promise<User | undefined> {
+        return this.apiService.fetchUserById(userId);
+    }
+
     async addUser(user: User): Promise<boolean> {
         return this.apiService.addUser(user);
     }
@@ -42,14 +46,13 @@ export class UserRepository {
             "email": "krishna@gmail.com",
             "password": "krishna"
         });
-        if(response.success){
+        if (response.success) {
             console.log(response.data);
             return response.data!;
-        }
-        else return response.data!;
+        } else return response.data!;
     }
 
-    async getColleges(): Promise<College[]>{
+    async getColleges(): Promise<College[]> {
         return this.collegeService.fetchUniqueColleges();
     }
 }

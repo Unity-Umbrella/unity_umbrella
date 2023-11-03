@@ -16,7 +16,12 @@ export class UserUseCase {
         UserUseCase.students = await this.userRepository.getAllUsers();
         return UserUseCase.students;
     }
-    async getAllColleges(): Promise<College[]>{
+
+    async getUserById(userId: number): Promise<User | undefined> {
+        return await this.userRepository.getUserById(userId);
+    }
+
+    async getAllColleges(): Promise<College[]> {
         UserUseCase.colleges = await this.userRepository.getColleges();
         return UserUseCase.colleges;
     }
@@ -64,13 +69,14 @@ export class UserUseCase {
         }
         return usersList;
     }
-    async filterUser(selectedValues: string[]): Promise<User[]>{
+
+    async filterUser(selectedValues: string[]): Promise<User[]> {
         let userList = <User[]>[...UserUseCase.students];
 
-        return userList.filter(user=>{
-            for (const filter of selectedValues){
+        return userList.filter(user => {
+            for (const filter of selectedValues) {
                 console.log(filter);
-                if(filter == user.college.collegeName) return true;
+                if (filter == user.college.collegeName) return true;
                 else return false;
             }
             return true;

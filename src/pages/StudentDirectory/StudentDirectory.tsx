@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import SortComponent from "../../components/Sort/Sort";
 import {StudentFilter} from "../../common/enums";
 import FilterComponent from "../../components/Filter/Filter";
+import {Link} from "react-router-dom";
 
 const StudentDirectory: React.FC = () => {
     const [students, setStudents] = useState<User[]>([]);
@@ -39,7 +40,7 @@ const StudentDirectory: React.FC = () => {
         <FilterComponent filterElements={filterElements} onFilterChange={handleFilterChange}/>
         <List sx={{width: '100%', bgcolor: 'background.paper'}}>
             {students.map(student => (
-                <><ListItem alignItems="flex-start" button={true}>
+                <><ListItem alignItems="flex-start" key={student.userId} component={Link} to={`/student-directory/${student.userId}`}>
                     <ListItemAvatar>
                         <Avatar alt="Avatar" src={student.image}/>
                     </ListItemAvatar>

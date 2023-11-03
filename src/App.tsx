@@ -7,6 +7,9 @@ import Header from "./components/Header/Header";
 import StudentDirectory from "./pages/StudentDirectory/StudentDirectory";
 import HouseListing from './pages/HouseListing/HouseListing';
 import LoginPage from "./pages/Login/Login";
+import About from "./pages/AboutUs/AboutUs";
+import Chatpg from "./pages/ChatPage/ChatPage";
+import { MultiChatWindow } from 'react-chat-engine-advanced';
 import UserProfile from "./pages/UserProfile/UserProfile";
 
 
@@ -23,6 +26,8 @@ function App() {
                     <Route path="/student-directory/:userId" element={<UserProfile/>}/>
                     <Route path="/house-listing" element={<HouseListing/>}/>
                     <Route path="/login" element={<LoginPage/>}/>
+                    <Route path="/about-us" element={<About/>}/>
+                    <Route path="/chat" element={<Chatpg/>}/>
                     {/* Add more routes as needed */}
                 </Routes>
             </div>

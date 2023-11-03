@@ -9,12 +9,18 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import SortComponent from "../../components/Sort/Sort";
 import {StudentFilter} from "../../common/enums";
+import FilterComponent from "../../components/Filter/Filter";
 
 const StudentDirectory: React.FC = () => {
     const [students, setStudents] = useState<User[]>([]);
-    const filters = [StudentFilter.College,StudentFilter.DateOfBirth,StudentFilter.Email,StudentFilter.FirstName,StudentFilter.LastName];
+    const filters = [StudentFilter.College, StudentFilter.DateOfBirth, StudentFilter.Email, StudentFilter.FirstName, StudentFilter.LastName];
     const userUseCase = new UserUseCase();
 
+    const filterElements = [{id: 1, label: 'Conestoga College'}, {id: 2, label: "ABC College"}];
+    const handleFilterChange = async (selectedFilters: string[]) => {
+        const filteredStudents = await userUseCase.filterUser(selectedFilters);
+        setStudents(filteredStudents);
+    };
     const fetchUsers = async () => {
         const studentsList = await userUseCase.getAllUsers();
         console.log(studentsList);
@@ -30,6 +36,7 @@ const StudentDirectory: React.FC = () => {
     }, []);
     return <>
         <SortComponent options={filters} onSortChange={handleSortChange}/>
+        <FilterComponent filterElements={filterElements} onFilterChange={handleFilterChange}/>
         <List sx={{width: '100%', bgcolor: 'background.paper'}}>
             {students.map(student => (
                 <><ListItem alignItems="flex-start" button={true}>

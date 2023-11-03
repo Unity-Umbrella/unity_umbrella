@@ -1,10 +1,12 @@
 import {UserRepository} from "../repositories/UserRepository";
 import {User} from "../domain/models/user";
 import {StudentFilter} from "../common/enums";
+import {College} from "../domain/models/college";
 
 export class UserUseCase {
     private userRepository: UserRepository;
     static students = <User[]>[];
+    static colleges = <College[]>[];
 
     constructor(userRepository?: UserRepository) {
         this.userRepository = userRepository ?? new UserRepository();
@@ -13,6 +15,10 @@ export class UserUseCase {
     async getAllUsers(): Promise<User[]> {
         UserUseCase.students = await this.userRepository.getAllUsers();
         return UserUseCase.students;
+    }
+    async getAllColleges(): Promise<College[]>{
+        UserUseCase.colleges = await this.userRepository.getColleges();
+        return UserUseCase.colleges;
     }
 
     async addUser(user: User): Promise<boolean> {
@@ -57,5 +63,17 @@ export class UserUseCase {
                 break;
         }
         return usersList;
+    }
+    async filterUser(selectedValues: string[]): Promise<User[]>{
+        let userList = <User[]>[...UserUseCase.students];
+
+        return userList.filter(user=>{
+            for (const filter of selectedValues){
+                console.log(filter);
+                if(filter == user.college.collegeName) return true;
+                else return false;
+            }
+            return true;
+        });
     }
 }

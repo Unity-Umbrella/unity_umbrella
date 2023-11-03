@@ -3,15 +3,20 @@ import {GlobalServices} from "../common/globalServices";
 import {User} from "../domain/models/user";
 import {AuthAPI} from "../services/ServerApi/authAPI";
 import {AuthApiServices} from "../services/authApiServices";
+import {CollegeApiServices} from "../services/collegeApiServices";
+import {CollegeAPI} from "../services/ServerApi/collegeAPI";
+import {College} from "../domain/models/college";
 
 export class UserRepository {
     private apiService: UserApiService;
     private authService: AuthApiServices;
+    private collegeService: CollegeApiServices;
 
 
-    constructor(apiService?: UserApiService, authApiService?: AuthApiServices) {
+    constructor(apiService?: UserApiService, authApiService?: AuthApiServices, collegeService?: CollegeApiServices) {
         this.apiService = apiService ?? GlobalServices.userApi;
         this.authService = authApiService ?? new AuthAPI();
+        this.collegeService = collegeService ?? new CollegeAPI();
     }
 
     //TODO: implement the error methods or return a interface for success or failure
@@ -44,4 +49,7 @@ export class UserRepository {
         else return response.data!;
     }
 
+    async getColleges(): Promise<College[]>{
+        return this.collegeService.fetchUniqueColleges();
+    }
 }

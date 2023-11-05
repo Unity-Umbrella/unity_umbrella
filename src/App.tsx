@@ -13,15 +13,18 @@ import Admin from "./pages/AdminPortal/Admin";
 import Dashboard from "./pages/Dashboard/dashboard";
 import Sidebar from './components/Sidebar/Sidebar';
 import { MultiChatWindow } from 'react-chat-engine-advanced';
-
+import { Table } from '@mui/material';
+import Crud from './pages/Crud/Crud';
 
 const theme = createTheme();
 
 function App() {
   return (
       <Router>
-          <div>
+          <div className="App">
               <Header />
+              <Sidebar />
+              <Table/>
               <Routes>
                   <Route path="/" element={<Home/>}/>
                   <Route path="/student-directory" element={<StudentDirectory/>}/>
@@ -31,6 +34,7 @@ function App() {
                   <Route path="/chat" element={<Chatpg/>}/>
                   <Route path="/admin" element={<Admin/>}/>
                   <Route path="/dashboard" element={<Dashboard/>}/>
+                  <Route path="/crud" element={<Crud/>}/>
                   {/* Add more routes as needed */}
               </Routes>
           </div>

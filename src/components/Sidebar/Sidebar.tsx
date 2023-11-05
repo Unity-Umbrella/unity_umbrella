@@ -7,9 +7,17 @@ import {Button} from "@mui/material";
 import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
+    const menuItem=[
+        {
+            
+
+        }
+    ]
+
+
+
     return(
         <div>
-            <h1>This is a Sidebar</h1>
         </div>
     );
 };

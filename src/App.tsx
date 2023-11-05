@@ -1,6 +1,4 @@
 import React from 'react';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import Home from './pages/Home/Home';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Header from "./components/Header/Header";
@@ -18,8 +16,6 @@ import RegistrationPage from './pages/Registration/Registration';
 import ContactUs from './pages/ContactUs/ContactUs';
 import { Table } from '@mui/material';
 import Crud from './pages/Crud/Crud';
-
-const theme = createTheme();
 
 function App() {
     return (

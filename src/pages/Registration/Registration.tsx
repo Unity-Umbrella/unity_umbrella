@@ -1,5 +1,6 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
 import Axios from 'axios';
+import { TextField, Button, Container, Typography, Grid } from '@mui/material';
 
 interface RegistrationPageState {
     firstName: string;
@@ -38,178 +39,155 @@ class RegistrationPage extends Component<{}, RegistrationPageState> {
     };
 
     validateField = (fieldName: string, value: string) => {
-        const updatedState: Partial<RegistrationPageState> = {
-            firstNameError: null,
-            lastNameError: null,
-            emailError: null,
-            passwordError: null,
-            dobError: null,
-        };
+        let error: string | null = null;
 
         if (fieldName === 'firstName') {
             if (value.trim() === '') {
-                updatedState.firstNameError = 'First Name is required';
+                error = 'First Name is required';
             }
         } else if (fieldName === 'lastName') {
             if (value.trim() === '') {
-                updatedState.lastNameError = 'Last Name is required';
+                error = 'Last Name is required';
             }
         } else if (fieldName === 'email') {
             if (!value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)) {
-                updatedState.emailError = 'Invalid email address';
+                error = 'Invalid email address';
             }
         } else if (fieldName === 'password') {
             if (value.length < 8) {
-                updatedState.passwordError = 'Password must be at least 8 characters';
+                error = 'Password must be at least 8 characters';
             }
         } else if (fieldName === 'dob') {
             if (value.trim() === '') {
-                updatedState.dobError = 'Date of Birth is required';
+                error = 'Date of Birth is required';
+            } else if (!value.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                error = 'Invalid Date of Birth format (YYYY-MM-DD)';
             }
-            else if (!value.match(/^\d{4}-\d{2}-\d{2}$/)) {
-                updatedState.dobError = 'Invalid Date of Birth format (YYYY-MM-DD)';
-            }
-            // You can add more specific DOB validation here if needed
+           
         }
 
-        this.setState((prevState) => ({
+        this.setState(prevState => ({
             ...prevState,
-            ...updatedState,
+            [`${fieldName}Error`]: error,
         }));
+
+        return !error; // Return true if the field is valid, otherwise return false
     };
 
     handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
         const { firstName, lastName, email, password, dob } = this.state;
 
-        // Validate the fields before submitting
-        this.validateField('firstName', firstName);
-        this.validateField('lastName', lastName);
-        this.validateField('email', email);
-        this.validateField('password', password);
-        this.validateField('dob', dob);
+        const validFirstName = this.validateField('firstName', firstName);
+        const validLastName = this.validateField('lastName', lastName);
+        const validEmail = this.validateField('email', email);
+        const validPassword = this.validateField('password', password);
+        const validDob = this.validateField('dob', dob);
 
-        // Check if any field is empty
-        if (
-            firstName.trim() === '' ||
-            lastName.trim() === '' ||
-            email.trim() === '' ||
-            password.trim() === '' ||
-            dob.trim() === ''
-        ) {
-            // If any field is empty, set an error message
-            this.setState({
-                firstNameError: firstName.trim() === '' ? 'First Name is required' : null,
-                lastNameError: lastName.trim() === '' ? 'Last Name is required' : null,
-                emailError: email.trim() === '' ? 'Email is required' : null,
-                passwordError: password.trim() === '' ? 'Password is required' : null,
-                dobError: dob.trim() === '' ? 'Date of Birth is required' : null,
-            });
-            return;
-        }
+        if (validFirstName && validLastName && validEmail && validPassword && validDob) {
+            // All fields are valid, proceed with form submission
 
-        // Check if there are validation errors
-        if (
-            this.state.firstNameError ||
-            this.state.lastNameError ||
-            this.state.emailError ||
-            this.state.passwordError ||
-            this.state.dobError
-        ) {
-            // If there are errors, don't submit the form
-            return;
-        }
+            // Update the endpoint URL to match Our server
+            const registrationEndpoint = 'http://localhost:3001/api/register';
 
-        // Update the endpoint URL to match your server
-        const registrationEndpoint = 'http://localhost:3001/api/register';
+            try {
+                // Send a POST request to the server's registration endpoint
+                const response = await Axios.post(registrationEndpoint, {
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                    dob,
+                });
 
-        try {
-            // Send a POST request to your server's registration endpoint
-            const response = await Axios.post(registrationEndpoint, {
-                firstName,
-                lastName,
-                email,
-                password,
-                dob,
-            });
-
-            // Handle the response from the server
-            if (response.status === 200) {
-                // Registration was successful, you can redirect the user or perform other actions.
-                console.log('Registration successful!');
-            } else {
-                // Handle registration errors
-                console.error('Registration failed. Please try again.');
+                // Response from the server
+                if (response.status === 200) {
+                    // Registration was successful, you can redirect the user or perform other actions.
+                    console.log('Registration successful!');
+                } else {
+                    // Registration errors
+                    console.error('Registration failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('An error occurred while registering:', error);
             }
-        } catch (error) {
-            // Handle any network or server errors
-            console.error('An error occurred while registering:', error);
+        } else {
+            // validation errors , do not proceed with submission
         }
     };
 
     render() {
         return (
-            
-         <div>
-              <h1 id='txt'>Registration Page</h1>
-            <div id='reg'>
-              
-                
+            <Container maxWidth="md">
+                <Typography variant="h2" component="h1" gutterBottom>
+                    Registration 
+                </Typography>
                 <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <label>First Name:</label>
-                        <input
-                            type="text"
-                            name="firstName"
-                            value={this.state.firstName}
-                            onChange={this.handleInputChange}
-                        />
-                        <div className="error">{this.state.firstNameError}</div>
-                    </div>
-                    <div>
-                        <label>Last Name:</label>
-                        <input
-                            type="text"
-                            name="lastName"
-                            value={this.state.lastName}
-                            onChange={this.handleInputChange}
-                        />
-                        <div className="error">{this.state.lastNameError}</div>
-                    </div>
-                    <div>
-                        <label>Email:</label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={this.state.email}
-                            onChange={this.handleInputChange}
-                        />
-                        <div className="error">{this.state.emailError}</div>
-                    </div>
-                    <div>
-                        <label>Password:</label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={this.state.password}
-                            onChange={this.handleInputChange}
-                        />
-                        <div className="error">{this.state.passwordError}</div>
-                    </div>
-                    <div>
-                        <label>Date of Birth:</label>
-                        <input
-                            type="text"
-                            name="dob"
-                            value={this.state.dob}
-                            onChange={this.handleInputChange}
-                        />
-                        <div className="error">{this.state.dobError}</div>
-                    </div>
-                    <button id="submit_btn" type="submit">Register</button>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                fullWidth
+                                label="First Name"
+                                name="firstName"
+                                value={this.state.firstName}
+                                onChange={this.handleInputChange}
+                                error={!!this.state.firstNameError}
+                                helperText={this.state.firstNameError}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                fullWidth
+                                label="Last Name"
+                                name="lastName"
+                                value={this.state.lastName}
+                                onChange={this.handleInputChange}
+                                error={!!this.state.lastNameError}
+                                helperText={this.state.lastNameError}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Email"
+                                name="email"
+                                type="email"
+                                value={this.state.email}
+                                onChange={this.handleInputChange}
+                                error={!!this.state.emailError}
+                                helperText={this.state.emailError}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Password"
+                                name="password"
+                                type="password"
+                                value={this.state.password}
+                                onChange={this.handleInputChange}
+                                error={!!this.state.passwordError}
+                                helperText={this.state.passwordError}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Date of Birth (YYYY-MM-DD)"
+                                name="dob"
+                                value={this.state.dob}
+                                onChange={this.handleInputChange}
+                                error={!!this.state.dobError}
+                                helperText={this.state.dobError}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Button variant="contained" color="primary" type="submit">
+                        Register
+                    </Button>
                 </form>
-            </div>
-            </div>
+            </Container>
         );
     }
 }

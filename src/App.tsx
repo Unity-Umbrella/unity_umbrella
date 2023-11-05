@@ -12,7 +12,7 @@ import Chatpg from "./pages/ChatPage/ChatPage";
 import { MultiChatWindow } from 'react-chat-engine-advanced';
 import UserProfile from "./pages/UserProfile/UserProfile";
 import RegistrationPage from './pages/Registration/Registration';
-
+import ContactUs from './pages/ContactUs/ContactUs';
 
 const theme = createTheme();
 
@@ -30,6 +30,7 @@ function App() {
                     <Route path="/about-us" element={<About/>}/>
                     <Route path="/chat" element={<Chatpg/>}/>
                     <Route path="/registration" element={<RegistrationPage/>}/>
+                    <Route path="/contact-us" element={<ContactUs />} />
                     {/* Add more routes as needed */}
                 </Routes>
             </div>

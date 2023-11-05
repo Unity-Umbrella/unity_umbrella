@@ -7,23 +7,40 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
+import SortComponent from "../../components/Sort/Sort";
+import {StudentFilter} from "../../common/enums";
+import FilterComponent from "../../components/Filter/Filter";
+import {Link} from "react-router-dom";
 
 const StudentDirectory: React.FC = () => {
     const [students, setStudents] = useState<User[]>([]);
+    const filters = [StudentFilter.College, StudentFilter.DateOfBirth, StudentFilter.Email, StudentFilter.FirstName, StudentFilter.LastName];
     const userUseCase = new UserUseCase();
 
+    const filterElements = [{id: 1, label: 'Conestoga College'}, {id: 2, label: "ABC College"}];
+    const handleFilterChange = async (selectedFilters: string[]) => {
+        const filteredStudents = await userUseCase.filterUser(selectedFilters);
+        setStudents(filteredStudents);
+    };
     const fetchUsers = async () => {
         const studentsList = await userUseCase.getAllUsers();
         console.log(studentsList);
         setStudents(studentsList);
     }
+
+    const handleSortChange = async (filterValue: string) => {
+        const sortedStudents = await userUseCase.sortUser(filterValue);
+        setStudents(sortedStudents);
+    };
     useEffect(() => {
         fetchUsers().then(r => true);
     }, []);
     return <>
+        <SortComponent options={filters} onSortChange={handleSortChange}/>
+        <FilterComponent filterElements={filterElements} onFilterChange={handleFilterChange}/>
         <List sx={{width: '100%', bgcolor: 'background.paper'}}>
             {students.map(student => (
-                <><ListItem alignItems="flex-start" button={true}>
+                <><ListItem alignItems="flex-start" key={student.userId} component={Link} to={`/student-directory/${student.userId}`}>
                     <ListItemAvatar>
                         <Avatar alt="Avatar" src={student.image}/>
                     </ListItemAvatar>

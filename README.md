@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Chat Page Install
+
+### `npm install react-chat-engine-advanced`
+
+### Chat Server
+
+### `chatengine.io`
+
+### icons
+
+### `npm install react-icons`

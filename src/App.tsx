@@ -9,10 +9,15 @@ import HouseListing from './pages/HouseListing/HouseListing';
 import LoginPage from "./pages/Login/Login";
 import About from "./pages/AboutUs/AboutUs";
 import Chatpg from "./pages/ChatPage/ChatPage";
+import Admin from "./pages/AdminPortal/Admin";
+import Dashboard from "./pages/Dashboard/dashboard";
+import Sidebar from './components/Sidebar/Sidebar';
 import { MultiChatWindow } from 'react-chat-engine-advanced';
 import UserProfile from "./pages/UserProfile/UserProfile";
 import RegistrationPage from './pages/Registration/Registration';
 import ContactUs from './pages/ContactUs/ContactUs';
+import { Table } from '@mui/material';
+import Crud from './pages/Crud/Crud';
 
 const theme = createTheme();
 
@@ -31,6 +36,9 @@ function App() {
                     <Route path="/chat" element={<Chatpg/>}/>
                     <Route path="/registration" element={<RegistrationPage/>}/>
                     <Route path="/contact-us" element={<ContactUs />} />
+                    <Route path="/admin" element={<Admin/>}/>
+                    <Route path="/dashboard" element={<Dashboard/>}/>
+                    <Route path="/crud" element={<Crud/>}/>
                     {/* Add more routes as needed */}
                 </Routes>
             </div>

@@ -1,13 +1,32 @@
+import { useState } from "react";
 import "./UserList.style.css";
+import UserModal from "./UserModal";
+import UserModel from "./UserModal";
 import { IUser } from "./UserType";
 
 type Props = {
-    list: IUser[]
+    list: IUser[];
+    onDeleteClickHnd: (data: IUser) => void;
+    onEdit: (data:IUser) => void;
 };
 
-const userList = (props: Props) => {
-    const {list} = props;
-    return <div>
+const UserList = (props: Props) => {
+    const {list, onDeleteClickHnd, onEdit} = props;
+    const [showModal, setShowModal] = useState(false);
+    const [dataToShow, setDataToShow] = useState(null as IUser | null);
+
+    const viewUser = (data: IUser) => {
+        setDataToShow(data)
+        setShowModal(true);
+    };
+
+    const onCloseModal = () => setShowModal(false);
+
+    return (
+    <div>
+        <article>
+            <h3 className="list-header">User List</h3>
+        </article>
 
 <table>
   <tr>
@@ -27,9 +46,9 @@ const userList = (props: Props) => {
             <td>{user.collegeName}</td>
             <td>
                 <div>
-                    <input type="button" value="View" />
-                    <input type="button" value="Edit" />
-                    <input type="button" value="Delete" />
+                    <input type="button" value="View" onClick={() => viewUser(user)} />
+                    <input type="button" value="Edit" onClick={() => onEdit(user)} />
+                    <input type="button" value="Delete" onClick={() => onDeleteClickHnd(user)} />
                 </div>
             </td>
         </tr>
@@ -38,10 +57,13 @@ const userList = (props: Props) => {
   
   
 </table>
-
-    </div>;
+{showModal && dataToShow !== null && ( 
+    <UserModal onClose={onCloseModal}  data={dataToShow}/> 
+)}
+    </div>
+    );
 
     
 };
 
-export default userList;
+export default UserList;

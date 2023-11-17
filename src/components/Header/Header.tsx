@@ -6,9 +6,11 @@ import {colors} from "../../styles/colors";
 import {Button} from "@mui/material";
 import { Link } from 'react-router-dom';
 
+
+
 const Header: React.FC = () => {
     return (
-        <AppBar position="static" style={{ backgroundColor: colors.primary }}>
+        <AppBar position="static" style={{ backgroundColor: colors.danger }}>
             <Toolbar>
                 <Typography variant="h6" component="div">
                     Unity Umbrella

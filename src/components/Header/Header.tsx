@@ -1,34 +1,94 @@
-import * as React from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {colors} from "../../styles/colors";
-import {Button} from "@mui/material";
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import { colors } from '../../styles/colors';
 import { Link } from 'react-router-dom';
-
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Header: React.FC = () => {
-    return (
-        <AppBar position="static" style={{ backgroundColor: colors.danger }}>
-            <Toolbar>
-                <Typography variant="h6" component="div">
-                    Unity Umbrella
-                </Typography>
-                <Button color="inherit" component={Link} to="/">Home</Button>
-                <Button color="inherit" component={Link} to="/student-directory">Students Directory</Button>
-                <Button color="inherit" component={Link} to="/house-listing">House Listing</Button>
-                <Button color="inherit" component={Link} to="/Login">Login</Button>
-                <Button color="inherit" component={Link} to="/contact-us">Contact</Button>
-                <Button color="inherit" component={Link} to="/about-us">About Us</Button>
-                <Button color="inherit" component={Link} to="/chat">Chat</Button>
-                <Button color="inherit" component={Link} to="/Registration">Register</Button>
-                <Button color="inherit" component={Link} to="/admin">Admin</Button>
-                <Button color="inherit" component={Link} to="/dashboard">Dashboard</Button>
-                <Button color="inherit" component={Link} to="/crud">CRUD</Button>
-            </Toolbar>
-        </AppBar>
-    );
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
+
+  const toggleDrawer = (open: boolean) => () => {
+    setDrawerOpen(open);
+  };
+
+  const menuItems = [
+    { text: 'Home', link: '/' },
+    { text: 'Students Directory', link: '/student-directory' },
+    { text: 'House Listing', link: '/house-listing' },
+    { text: 'Login', link: '/login' },
+    { text: 'Contact', link: '/contact-us' },
+    { text: 'About Us', link: '/about-us' },
+    { text: 'Chat', link: '/chat' },
+    { text: 'Register', link: '/registration' },
+    { text: 'Admin', link: '/admin' },
+    { text: 'Dashboard', link: '/dashboard' },
+    { text: 'CRUD', link: '/crud' },
+  ];
+
+  return (
+    <AppBar position="static" style={{ backgroundColor: colors.primary }}>
+      <Toolbar>
+        <Typography variant="h6" component="div">
+          Unity Umbrella
+        </Typography>
+
+        {isSmallScreen ? (
+          <>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Drawer
+              anchor="left"
+              open={drawerOpen}
+              onClose={toggleDrawer(false)}
+            >
+              <List>
+                {menuItems.map((item) => (
+                  <ListItem
+                    button
+                    key={item.text}
+                    component={Link}
+                    to={item.link}
+                    onClick={toggleDrawer(false)}
+                  >
+                    <ListItemText primary={item.text} />
+                  </ListItem>
+                ))}
+              </List>
+            </Drawer>
+          </>
+        ) : (
+          <>
+            {menuItems.map((item) => (
+              <Button
+                key={item.text}
+                color="inherit"
+                component={Link}
+                to={item.link}
+              >
+                {item.text}
+              </Button>
+            ))}
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
+  );
 };
 
 export default Header;

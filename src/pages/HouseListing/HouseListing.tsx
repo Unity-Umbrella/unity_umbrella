@@ -50,6 +50,7 @@ const HouseListing: React.FC = () => {
                                             <Img alt="complex" src={house.image} />
                                         </ButtonBase>
                                     </Grid>
+                                    
                                     <Grid item xs={12} sm container>
                                         <Grid item xs container direction="column" spacing={2}>
                                             <Grid item xs>
@@ -70,6 +71,7 @@ const HouseListing: React.FC = () => {
                                             </Typography>
                                         </Grid>
                                     </Grid>
+                                    
                                 </Grid>
                             </Paper>
                         </React.Fragment>

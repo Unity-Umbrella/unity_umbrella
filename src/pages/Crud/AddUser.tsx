@@ -16,6 +16,7 @@ const AddUser = (props: Props) => {
     const [email, setEmail] = useState("");
     const [campus, setCampus] = useState("");
     const [college, setCollege] = useState("");
+    const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
     const { onBackBtnClickHnd, onSubmitClickHnd} = props;
 
@@ -35,8 +36,59 @@ const AddUser = (props: Props) => {
     const onCollegeChangeHnd =(e: any)=>{
         setCollege(e.target.value)
     }
+
+    const validateForm = () => {
+      const errors = [];
+
+      if (!firstName.trim()) {
+          errors.push('First Name is required');
+      }
+
+      if (!lastName.trim()) {
+          errors.push('Last Name is required');
+      }
+
+      if (!email.trim()) {
+          errors.push('Email is required');
+      }
+
+      if (!campus.trim()) {
+        errors.push('Campus Name is required');
+      }
+
+      if (!college.trim()) {
+        errors.push('College Name is required');
+      }
+
+
+      return errors;
+  };
+
+  const displayErrorMessages = (errorMessages: any[]) => {
+      const errorMessageContainer = document.getElementById('errorMessages');
+      if(errorMessageContainer){
+      errorMessageContainer.innerHTML = '';
+
+      errorMessages.forEach((message) => {
+          const errorMessageDiv = document.createElement('div');
+          errorMessageDiv.textContent = message;
+          errorMessageContainer.appendChild(errorMessageDiv);
+      });
+    }
+    else{
+      console.error('Error: errorMessageContainer not found in the DOM');
+    }
+  };
+
+
+
     const onsubmitBtnClickHnd=(e: any)=>{
         e.preventDefault();
+
+        const errorMessages = validateForm();
+        if (errorMessages.length === 0) {
+
+
         const data: IUser={
             id: new Date().toJSON().toString(),
             firstName : firstName,
@@ -47,6 +99,10 @@ const AddUser = (props: Props) => {
         }
         onSubmitClickHnd(data);
         onBackBtnClickHnd();
+      }
+      else{
+        displayErrorMessages(errorMessages);
+      }
 
     }
 
@@ -58,7 +114,7 @@ const AddUser = (props: Props) => {
         <div>
             <h3>Add User</h3>
         </div>
-        <form onSubmit={onsubmitBtnClickHnd}>
+        <form action="/" method="GET" onSubmit={onsubmitBtnClickHnd}>
             <div className="content">
             <div className="input-box">
                 <label className="required">First Name : </label>

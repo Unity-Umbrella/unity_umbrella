@@ -3,7 +3,7 @@ export const colors = {
     secondary: '#1e6091',
     tertiary: '#1a759f',
     accent: '#168aad',
-    shade1: '#34a0a4',
+    button: '#D9ED92',
     shade2: '#52b69a',
     shade3: '#76c893',
     shade4: '#99d98c',

@@ -1,5 +1,6 @@
 import "./UserModal.style.css";
 import { IUser } from "./UserType";
+import React from "react";
 
 type Props ={
     onClose: () => void;

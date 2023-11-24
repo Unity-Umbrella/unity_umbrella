@@ -1,6 +1,7 @@
 import { IUser } from "./UserType";
 import "./UserForm.style.css";
 import { useState } from "react";
+import React from "react";
 
 type Props = {
     data: IUser;

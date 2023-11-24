@@ -15,6 +15,10 @@ function About() {
     return (
 
         <>
+            <div>
+                <Header/>
+
+            </div>
             <Container maxWidth="md" sx={{ textAlign: 'center', paddingTop: 8, paddingBottom: 8 }}>
                 <Typography variant="h2" component="h1" gutterBottom>
                     About Our Home Listing!

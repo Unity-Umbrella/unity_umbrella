@@ -4,6 +4,7 @@ import {User} from "../../domain/models/user";
 import Ratings from "../../components/Ratings/Ratings";
 import {UserUseCase} from "../../usecases/UserUseCase";
 import {useParams} from 'react-router-dom';
+import Header from "../../components/Header/Header";
 
 const userProfileStyles = {
     root: {
@@ -41,37 +42,43 @@ const UserProfile: React.FC = () => {
     }
 
     return (
-        <Paper style={userProfileStyles.root}>
-            <Grid container spacing={3} justifyContent="center">
-                <Grid item xs={12} textAlign="center">
-                    <Avatar alt={`${user.firstName} ${user.lastName}`} src={user.image}
-                            style={userProfileStyles.avatar}/>
+        <>
+            <div>
+                <Header/>
+
+            </div>
+            <Paper style={userProfileStyles.root}>
+                <Grid container spacing={3} justifyContent="center">
+                    <Grid item xs={12} textAlign="center">
+                        <Avatar alt={`${user.firstName} ${user.lastName}`} src={user.image}
+                                style={userProfileStyles.avatar}/>
+                    </Grid>
+                    <Grid item xs={12} textAlign="center">
+                        <Typography variant="h4">{`${user.firstName} ${user.lastName}`}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant="body1">Email: {user.email}</Typography>
+                        <Typography variant="body1">Phone Number: {user.phoneNumber}</Typography>
+                        <Typography variant="body1">Date of Birth: {user.dateOfBirth}</Typography>
+                        <Typography variant="body1">College: {user.college.collegeName}</Typography>
+                        <Typography
+                            variant="body1">Location: {user.location.city + ", " + user.location.country}</Typography>
+                        <Typography variant="body1">Campus: {user.campus.campusName}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant="h5">User Rating</Typography>
+                        <Typography variant="body1"><Ratings rating={user.ratings}/></Typography>
+                        {/* Add more categories as needed */}
+                    </Grid>
+                    <Grid item xs={12} textAlign="center">
+                        <Button variant="contained" color="primary" onClick={onConnectClick}
+                                style={userProfileStyles.button}>
+                            Connect on Chat
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} textAlign="center">
-                    <Typography variant="h4">{`${user.firstName} ${user.lastName}`}</Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="body1">Email: {user.email}</Typography>
-                    <Typography variant="body1">Phone Number: {user.phoneNumber}</Typography>
-                    <Typography variant="body1">Date of Birth: {user.dateOfBirth}</Typography>
-                    <Typography variant="body1">College: {user.college.collegeName}</Typography>
-                    <Typography
-                        variant="body1">Location: {user.location.city + ", " + user.location.country}</Typography>
-                    <Typography variant="body1">Campus: {user.campus.campusName}</Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="h5">User Rating</Typography>
-                    <Typography variant="body1"><Ratings rating={user.ratings}/></Typography>
-                    {/* Add more categories as needed */}
-                </Grid>
-                <Grid item xs={12} textAlign="center">
-                    <Button variant="contained" color="primary" onClick={onConnectClick}
-                            style={userProfileStyles.button}>
-                        Connect on Chat
-                    </Button>
-                </Grid>
-            </Grid>
-        </Paper>
+            </Paper>
+        </>
     );
 };
 

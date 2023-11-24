@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Container, TextField, Button, Typography } from '@mui/material';
+import React, {useState} from 'react';
+import {Container, TextField, Button, Typography} from '@mui/material';
+import Header from "../../components/Header/Header";
 
 const Admin = () => {
     const [email, setEmail] = useState('');
@@ -8,83 +9,86 @@ const Admin = () => {
     const [secretKey, setSecretKey] = useState('');
 
     const handleLogin = () => {
-        if(userType=="Admin" && secretKey!="RichitaR"){
+        if (userType == "Admin" && secretKey != "RichitaR") {
             alert("Invalid Admin")
-        }
-        else{
-            
+        } else {
+
         }
 
     }
 
     return (
-        <Container maxWidth="sm" style={{ marginTop: '100px' }}>
-            <Typography variant="h4" align="center" gutterBottom>
-                Login
-            </Typography>
+        <>
             <div>
-                <input 
-                type="radio"
-                name="UserType"
-                value="User"
-                onChange={(e) => setUserType(e.target.value)}
-                />{" "}
-                User 
-                <input
-                type="radio"
-                name="UserType"
-                value="Admin"
-                onChange={(e) => setUserType(e.target.value)}
-                />{" "}
-                Admin
+                <Header/>
+
             </div>
-
-            {userType == "Admin" ? (
-                <div className="mb-3">
-                    <TextField
-                    label="Secret Key"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    value={secretKey}
-                    onChange={(e) => setSecretKey(e.target.value)}
-                />
-
-                </div>
-            ) : null}
-
-
-
-
-            <form onSubmit={handleLogin}>
-                <TextField
-                    label="Email"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    value={email}
-                    onChange={(e) => setSecretKey(e.target.value)}
-                />
-                <TextField
-                    label="Password"
-                    type="password"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    value={password}
-                    onChange={(e) => setSecretKey(e.target.value)}
-                />
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    style={{ marginTop: '20px' }}
-                >
+            <Container maxWidth="sm" style={{marginTop: '100px'}}>
+                <Typography variant="h4" align="center" gutterBottom>
                     Login
-                </Button>
-            </form>
-        </Container>
+                </Typography>
+                <div>
+                    <input
+                        type="radio"
+                        name="UserType"
+                        value="User"
+                        onChange={(e) => setUserType(e.target.value)}
+                    />{" "}
+                    User
+                    <input
+                        type="radio"
+                        name="UserType"
+                        value="Admin"
+                        onChange={(e) => setUserType(e.target.value)}
+                    />{" "}
+                    Admin
+                </div>
+
+                {userType == "Admin" ? (
+                    <div className="mb-3">
+                        <TextField
+                            label="Secret Key"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            value={secretKey}
+                            onChange={(e) => setSecretKey(e.target.value)}
+                        />
+
+                    </div>
+                ) : null}
+
+
+                <form onSubmit={handleLogin}>
+                    <TextField
+                        label="Email"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        value={email}
+                        onChange={(e) => setSecretKey(e.target.value)}
+                    />
+                    <TextField
+                        label="Password"
+                        type="password"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        value={password}
+                        onChange={(e) => setSecretKey(e.target.value)}
+                    />
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                        style={{marginTop: '20px'}}
+                    >
+                        Login
+                    </Button>
+                </form>
+            </Container>
+        </>
     );
 }
 

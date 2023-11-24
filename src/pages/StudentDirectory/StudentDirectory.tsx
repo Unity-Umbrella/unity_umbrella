@@ -23,6 +23,7 @@ import {visuallyHidden} from '@mui/utils';
 import {User} from "../../domain/models/user";
 import {useEffect, useState} from "react";
 import {UserUseCase} from "../../usecases/UserUseCase";
+import Header from "../../components/Header/Header";
 
 interface Data {
     id: number;
@@ -246,7 +247,8 @@ export default function EnhancedTable() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-    const onSelectAllClick = () =>{}
+    const onSelectAllClick = () => {
+    }
 
     const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
@@ -264,68 +266,74 @@ export default function EnhancedTable() {
     // );
 
     return (
-        <Box sx={{width: '100%'}}>
-            <Paper sx={{width: '100%', mb: 2}}>
-                <EnhancedTableToolbar numSelected={selected.length}/>
-                <TableContainer>
-                    <Table
-                        sx={{minWidth: 750}}
-                        aria-labelledby="tableTitle"
-                        size='medium'
-                    >
-                        <EnhancedTableHead
-                            numSelected={selected.length}
-                            order={order}
-                            orderBy={orderBy}
-                            onRequestSort={handleRequestSort}
-                            rowCount={students.length}
-                         onSelectAllClick={onSelectAllClick}/>
-                        <TableBody>
-                            {students.map((row, index) => {
-                                const isItemSelected = isSelected(row.userId);
-                                const labelId = `enhanced-table-checkbox-${index}`;
+        <>
+            <div>
+                <Header/>
 
-                                return (
-                                    <TableRow
-                                        hover
-                                        onClick={(event) => handleClick(event, row.userId)}
-                                        role="checkbox"
-                                        aria-checked={isItemSelected}
-                                        tabIndex={-1}
-                                        key={row.userId}
-                                        selected={isItemSelected}
-                                        sx={{cursor: 'pointer'}}
-                                    >
+            </div>
+            <Box sx={{width: '100%'}}>
+                <Paper sx={{width: '100%', mb: 2}}>
+                    <EnhancedTableToolbar numSelected={selected.length}/>
+                    <TableContainer>
+                        <Table
+                            sx={{minWidth: 750}}
+                            aria-labelledby="tableTitle"
+                            size='medium'
+                        >
+                            <EnhancedTableHead
+                                numSelected={selected.length}
+                                order={order}
+                                orderBy={orderBy}
+                                onRequestSort={handleRequestSort}
+                                rowCount={students.length}
+                                onSelectAllClick={onSelectAllClick}/>
+                            <TableBody>
+                                {students.map((row, index) => {
+                                    const isItemSelected = isSelected(row.userId);
+                                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                                        <TableCell
-                                            component="th"
-                                            id={labelId}
-                                            scope="row"
-                                            padding="none"
+                                    return (
+                                        <TableRow
+                                            hover
+                                            onClick={(event) => handleClick(event, row.userId)}
+                                            role="checkbox"
+                                            aria-checked={isItemSelected}
+                                            tabIndex={-1}
+                                            key={row.userId}
+                                            selected={isItemSelected}
+                                            sx={{cursor: 'pointer'}}
                                         >
-                                            {row.firstName + " " + row.lastName}
-                                        </TableCell>
-                                        <TableCell align="right">{row.email}</TableCell>
-                                        <TableCell align="right">{row.college.collegeName}</TableCell>
-                                        <TableCell align="right">{row.campus.campusName}</TableCell>
-                                        <TableCell align="right">{row.ratings}</TableCell>
-                                    </TableRow>
-                                );
-                            })}
 
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={students.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </Paper>
-        </Box>
+                                            <TableCell
+                                                component="th"
+                                                id={labelId}
+                                                scope="row"
+                                                padding="none"
+                                            >
+                                                {row.firstName + " " + row.lastName}
+                                            </TableCell>
+                                            <TableCell align="right">{row.email}</TableCell>
+                                            <TableCell align="right">{row.college.collegeName}</TableCell>
+                                            <TableCell align="right">{row.campus.campusName}</TableCell>
+                                            <TableCell align="right">{row.ratings}</TableCell>
+                                        </TableRow>
+                                    );
+                                })}
+
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 25]}
+                        component="div"
+                        count={students.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                </Paper>
+            </Box>
+        </>
     );
 }

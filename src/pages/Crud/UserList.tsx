@@ -4,6 +4,7 @@ import UserModal from "./UserModal";
 import UserModel from "./UserModal";
 import { IUser } from "./UserType";
 import React from "react";
+import Header from "../../components/Header/Header";
 
 type Props = {
     list: IUser[];
@@ -40,6 +41,11 @@ const UserList = (props: Props) => {
   {list.map((user) => {
     console.log(user);
     return(
+        <>
+            <div>
+                <Header/>
+
+            </div>
         <tr key={user.id}>
             <td>{`${user.firstName} ${user.lastName}`}</td>
             <td>{user.email}</td>
@@ -53,6 +59,7 @@ const UserList = (props: Props) => {
                 </div>
             </td>
         </tr>
+        </>
     );
   })}
   

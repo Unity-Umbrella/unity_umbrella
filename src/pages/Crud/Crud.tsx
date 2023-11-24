@@ -69,6 +69,10 @@ const Crud = () => {
    
     return(
         <>
+            <div>
+                <Header/>
+
+            </div>
         <article className="article-header">
             <header>
                 <h1>Unity Umbrella</h1>

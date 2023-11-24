@@ -3,6 +3,18 @@ import { Container, Typography, Button } from '@mui/material';
 import Header from '../../components/Header/Header';
 import Footer from "../../components/Footer/Footer";
 import Grid from '@mui/material/Grid';
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import StudentDirectory from "../StudentDirectory/StudentDirectory";
+import UserProfile from "../UserProfile/UserProfile";
+import HouseListing from "../HouseListing/HouseListing";
+import LoginPage from "../Login/Login";
+import About from "../AboutUs/AboutUs";
+import Chatpg from "../ChatPage/ChatPage";
+import RegistrationPage from "../Registration/Registration";
+import ContactUs from "../ContactUs/ContactUs";
+import Admin from "../AdminPortal/Admin";
+import Dashboard from "../Dashboard/dashboard";
+import Crud from "../Crud/Crud";
 
 
 
@@ -11,6 +23,9 @@ import Grid from '@mui/material/Grid';
 function Home() {
     return (
         <>
+            <div>
+                <Header/>
+            </div>
             <section id='main'>
                 <div className="header">
                     <Container maxWidth="lg">

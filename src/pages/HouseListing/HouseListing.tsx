@@ -3,6 +3,7 @@ import {House} from "../../domain/models/houses";
 import {HouseUseCase} from "../../usecases/HouseUseCase";
 import {Avatar, ButtonBase, Grid, Paper, styled, Typography} from "@mui/material";
 import SortComponent from "../../components/Sort/Sort";
+import Header from "../../components/Header/Header";
 
 const HouseListing: React.FC = () => {
     const [houses, setHouses] = useState<House[]>([]);
@@ -31,6 +32,10 @@ const HouseListing: React.FC = () => {
         maxHeight: '100%',
     });
     return <>
+        <div>
+            <Header/>
+
+        </div>
         <br></br>
         <br></br>
         <br></br>

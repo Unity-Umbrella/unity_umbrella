@@ -1,15 +1,19 @@
 import {HouseRepository} from "../repositories/HouseRepository";
 import {House} from "../domain/models/houses";
+import {User} from "../domain/models/user";
+import {StudentFilter} from "../common/enums";
 
-export class HouseUseCase{
+export class HouseUseCase {
     private houseRepository: HouseRepository;
+    static houses = <House[]>[];
 
     constructor(houseRepository?: HouseRepository) {
         this.houseRepository = houseRepository ?? new HouseRepository();
     }
 
     async getAllHouses(): Promise<House[]> {
-        return await this.houseRepository.getAllHouses();
+        HouseUseCase.houses = await this.houseRepository.getAllHouses();
+        return HouseUseCase.houses;
     }
 
     async getHouseById(houseId: number): Promise<House> {
@@ -26,5 +30,37 @@ export class HouseUseCase{
 
     async deleteHouse(house: House): Promise<boolean> {
         return this.houseRepository.deleteHouse(house);
+    }
+
+    async sortHouse(sortBy: string): Promise<House[]> {
+        let houseList = <House[]>[...HouseUseCase.houses];
+        /*switch (sortBy) {
+            case "Bedroom":
+                houseList.sort((a, b) => {
+                    return a.bedroomCount > b.bedroomCount ? 1 : -1
+                });
+                break;
+            case StudentFilter.Email:
+                houseList.sort((a, b) => {
+                    return a.email > b.email ? 1 : -1
+                });
+                break;
+            case StudentFilter.FirstName:
+                houseList.sort((a, b) => {
+                    return a.firstName > b.firstName ? 1 : -1
+                });
+                break;
+            case StudentFilter.LastName:
+                usersList.sort((a, b) => {
+                    return a.lastName > b.lastName ? 1 : -1
+                });
+                break;
+            case StudentFilter.DateOfBirth:
+                usersList.sort((a, b) => {
+                    return a.dateOfBirth > b.dateOfBirth ? 1 : -1
+                });
+                break;
+        }*/
+        return houseList;
     }
 }

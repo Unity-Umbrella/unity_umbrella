@@ -3,6 +3,7 @@ import "./UserList.style.css";
 import UserModal from "./UserModal";
 import UserModel from "./UserModal";
 import { IUser } from "./UserType";
+import React from "react";
 
 type Props = {
     list: IUser[];

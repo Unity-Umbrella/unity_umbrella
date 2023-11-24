@@ -1,118 +1,331 @@
-import React, { useEffect, useState } from "react";
-import { UserUseCase } from "../../usecases/UserUseCase";
-import { User } from "../../domain/models/user";
-import List from "@mui/material/List";
-import { Divider, ListItem } from "@mui/material";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ListItemText from "@mui/material/ListItemText";
-import Typography from "@mui/material/Typography";
-import SortComponent from "../../components/Sort/Sort";
-import { StudentFilter } from "../../common/enums";
-import FilterComponent from "../../components/Filter/Filter";
-import Footer from "../../components/Footer/Footer";
-import { Link } from "react-router-dom";
+import * as React from 'react';
+import {alpha} from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import {visuallyHidden} from '@mui/utils';
+import {User} from "../../domain/models/user";
+import {useEffect, useState} from "react";
+import {UserUseCase} from "../../usecases/UserUseCase";
 
-const StudentDirectory: React.FC = () => {
-  const [students, setStudents] = useState<User[]>([]);
-  const filters = [
-    StudentFilter.College,
-    StudentFilter.DateOfBirth,
-    StudentFilter.Email,
-    StudentFilter.FirstName,
-    StudentFilter.LastName,
-  ];
-  const userUseCase = new UserUseCase();
+interface Data {
+    id: number;
+    email: string;
+    college: string;
+    campus: string;
+    name: string;
+    ratings: number;
+    userId: number;
+}
 
-  const filterElements = [
-    { id: 1, label: "Conestoga College" },
-    { id: 2, label: "ABC College" },
-  ];
-  const handleFilterChange = async (selectedFilters: string[]) => {
-    const filteredStudents = await userUseCase.filterUser(selectedFilters);
-    setStudents(filteredStudents);
-  };
-  const fetchUsers = async () => {
-    const studentsList = await userUseCase.getAllUsers();
-    console.log(studentsList);
-    setStudents(studentsList);
-  };
 
-  const handleSortChange = async (filterValue: string) => {
-    const sortedStudents = await userUseCase.sortUser(filterValue);
-    setStudents(sortedStudents);
-  };
-  useEffect(() => {
-    fetchUsers().then((r) => true);
-  }, []);
+function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+    if (b[orderBy] < a[orderBy]) {
+        return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+        return 1;
+    }
+    return 0;
+}
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-        padding: "20px",
-        backgroundColor: "#f5f5f5",
-        fontFamily: "Arial, sans-serif", // Set a professional font
-      }}
-    >
-      <div style={{ flex: 1 }}>
-        <SortComponent options={filters} onSortChange={handleSortChange} />
-        <FilterComponent
-          filterElements={filterElements}
-          onFilterChange={handleFilterChange}
-        />
-        <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-          {students.map((student) => (
-            <React.Fragment key={student.userId}>
-              <ListItem
-                alignItems="flex-start"
-                component={Link}
-                to={`/student-directory/${student.userId}`}
-                style={{
-                  textDecoration: "none",
-                  color: "#000",
-                  marginBottom: "10px",
-                  backgroundColor: "#fff",
-                  borderRadius: "8px",
-                  boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-                  transition: "transform 0.3s",
-                
-                }}
-              >
-                <ListItemAvatar>
-                  <Avatar alt="Avatar" src={student.image} />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={student.firstName + " " + student.lastName}
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        sx={{ display: "inline" }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      ></Typography>
-                      {student.campus.college.collegeName +
-                        " | " +
-                        student.email}
-                    </React.Fragment>
-                  }
+type Order = 'asc' | 'desc';
+
+function getComparator<Key extends keyof any>(
+    order: Order,
+    orderBy: Key,
+): (
+    a: { [key in Key]: number | string },
+    b: { [key in Key]: number | string },
+) => number {
+    return order === 'desc'
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+
+function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
+    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+    stabilizedThis.sort((a, b) => {
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) {
+            return order;
+        }
+        return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+}
+
+interface HeadCell {
+    disablePadding: boolean;
+    id: keyof Data;
+    label: string;
+    numeric: boolean;
+}
+
+const headCells: readonly HeadCell[] = [
+    {
+        id: 'name',
+        numeric: false,
+        disablePadding: true,
+        label: 'Name',
+    },
+    {
+        id: 'email',
+        numeric: false,
+        disablePadding: false,
+        label: 'Email',
+    },
+    {
+        id: 'college',
+        numeric: false,
+        disablePadding: false,
+        label: 'College',
+    },
+    {
+        id: 'campus',
+        numeric: false,
+        disablePadding: false,
+        label: 'Campus',
+    },
+    {
+        id: 'ratings',
+        numeric: true,
+        disablePadding: false,
+        label: 'Ratings',
+    },
+];
+
+interface EnhancedTableProps {
+    numSelected: number;
+    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
+    onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    order: Order;
+    orderBy: string;
+    rowCount: number;
+}
+
+function EnhancedTableHead(props: EnhancedTableProps) {
+    const {onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort} =
+        props;
+    const createSortHandler =
+        (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+            onRequestSort(event, property);
+        };
+
+    return (
+        <TableHead>
+            <TableRow>
+                {headCells.map((headCell) => (
+                    <TableCell
+                        key={headCell.id}
+                        align={headCell.numeric ? 'right' : 'left'}
+                        padding={headCell.disablePadding ? 'none' : 'normal'}
+                        sortDirection={orderBy === headCell.id ? order : false}
+                    >
+                        <TableSortLabel
+                            active={orderBy === headCell.id}
+                            direction={orderBy === headCell.id ? order : 'asc'}
+                            onClick={createSortHandler(headCell.id)}
+                        >
+                            {headCell.label}
+                            {orderBy === headCell.id ? (
+                                <Box component="span" sx={visuallyHidden}>
+                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                                </Box>
+                            ) : null}
+                        </TableSortLabel>
+                    </TableCell>
+                ))}
+            </TableRow>
+        </TableHead>
+    );
+}
+
+interface EnhancedTableToolbarProps {
+    numSelected: number;
+}
+
+function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
+    const {numSelected} = props;
+
+    return (
+        <Toolbar
+            sx={{
+                pl: {sm: 2},
+                pr: {xs: 1, sm: 1},
+
+            }}
+        >
+
+            <Typography
+                sx={{flex: '1 1 100%'}}
+                variant="h6"
+                id="tableTitle"
+                component="div"
+            >
+                Students
+            </Typography>
+
+
+            <Tooltip title="Filter list">
+                <IconButton>
+                    <FilterListIcon/>
+                </IconButton>
+            </Tooltip>
+
+        </Toolbar>
+    );
+}
+
+export default function EnhancedTable() {
+    const [order, setOrder] = React.useState<Order>('asc');
+    const [orderBy, setOrderBy] = React.useState<keyof Data>('ratings');
+    const [selected, setSelected] = React.useState<readonly number[]>([]);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [students, setStudents] = useState<User[]>([]);
+    const userUseCase = new UserUseCase();
+    const fetchUsers = async () => {
+        const studentsList = await userUseCase.getAllUsers();
+        setStudents(studentsList);
+    }
+    useEffect(() => {
+        fetchUsers().then(r => true);
+    }, []);
+    const handleRequestSort = (
+        event: React.MouseEvent<unknown>,
+        property: keyof Data,
+    ) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+    };
+
+//TODO: navigate to new page to see the student data
+    const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+        const selectedIndex = selected.indexOf(id);
+        let newSelected: readonly number[] = [];
+
+        if (selectedIndex === -1) {
+            newSelected = newSelected.concat(selected, id);
+        } else if (selectedIndex === 0) {
+            newSelected = newSelected.concat(selected.slice(1));
+        } else if (selectedIndex === selected.length - 1) {
+            newSelected = newSelected.concat(selected.slice(0, -1));
+        } else if (selectedIndex > 0) {
+            newSelected = newSelected.concat(
+                selected.slice(0, selectedIndex),
+                selected.slice(selectedIndex + 1),
+            );
+        }
+        setSelected(newSelected);
+    };
+
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+    const onSelectAllClick = () =>{}
+
+    const isSelected = (id: number) => selected.indexOf(id) !== -1;
+
+    // Avoid a layout jump when reaching the last page with empty rows.
+    const emptyRows =
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - students.length) : 0;
+
+    // const visibleRows = React.useMemo(
+    //     () =>
+    //         stableSort(students, getComparator(order, orderBy)).slice(
+    //             page * rowsPerPage,
+    //             page * rowsPerPage + rowsPerPage,
+    //         ),
+    //     [order, orderBy, page, rowsPerPage],
+    // );
+
+    return (
+        <Box sx={{width: '100%'}}>
+            <Paper sx={{width: '100%', mb: 2}}>
+                <EnhancedTableToolbar numSelected={selected.length}/>
+                <TableContainer>
+                    <Table
+                        sx={{minWidth: 750}}
+                        aria-labelledby="tableTitle"
+                        size='medium'
+                    >
+                        <EnhancedTableHead
+                            numSelected={selected.length}
+                            order={order}
+                            orderBy={orderBy}
+                            onRequestSort={handleRequestSort}
+                            rowCount={students.length}
+                         onSelectAllClick={onSelectAllClick}/>
+                        <TableBody>
+                            {students.map((row, index) => {
+                                const isItemSelected = isSelected(row.userId);
+                                const labelId = `enhanced-table-checkbox-${index}`;
+
+                                return (
+                                    <TableRow
+                                        hover
+                                        onClick={(event) => handleClick(event, row.userId)}
+                                        role="checkbox"
+                                        aria-checked={isItemSelected}
+                                        tabIndex={-1}
+                                        key={row.userId}
+                                        selected={isItemSelected}
+                                        sx={{cursor: 'pointer'}}
+                                    >
+
+                                        <TableCell
+                                            component="th"
+                                            id={labelId}
+                                            scope="row"
+                                            padding="none"
+                                        >
+                                            {row.firstName + " " + row.lastName}
+                                        </TableCell>
+                                        <TableCell align="right">{row.email}</TableCell>
+                                        <TableCell align="right">{row.college.collegeName}</TableCell>
+                                        <TableCell align="right">{row.campus.campusName}</TableCell>
+                                        <TableCell align="right">{row.ratings}</TableCell>
+                                    </TableRow>
+                                );
+                            })}
+
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={students.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-              </ListItem>
-              <Divider
-                variant="inset"
-                component="li"
-                style={{ backgroundColor: "#ccc" }}
-              />
-            </React.Fragment>
-          ))}
-        </List>
-      </div>
-      <Footer />
-    </div>
-  );
-};
-
-export default StudentDirectory;
+            </Paper>
+        </Box>
+    );
+}

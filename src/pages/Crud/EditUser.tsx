@@ -53,37 +53,46 @@ const EditUser = (props: Props) => {
 
 
     return (
+        <body>
         <div className="form-container">
         <div>
             <h3>Edit User</h3>
         </div>
         <form onSubmit={onsubmitBtnClickHnd}>
-            <div>
-                <label>First Name : </label>
+        <div className="content">
+            <div className="input-box">
+                <label className="required">First Name : </label>
                 <input type="text" value={firstName} onChange={onFirstNameChangeHnd} />
+                <div className="error"></div>
             </div>
-            <div>
-                <label>Last Name : </label>
+            <div className="input-box">
+                <label className="required">Last Name : </label>
                 <input type="text" value={lastName} onChange={onLastNameChangeHnd}/>
+                <div className="error"></div>
             </div>
-            <div>
-                <label> Email : </label>
+            <div className="input-box">
+                <label className="required"> Email : </label>
                 <input type="text" value={email} onChange={onEmailChangeHnd}/>
+                <div className="error"></div>
             </div>
-            <div>
-                <label>Campus : </label>
+            <div className="input-box">
+                <label className="required">Campus : </label>
                 <input type="text" value={campus} onChange={onCampusChangeHnd}/>
+                <div className="error"></div>
             </div>
-            <div>
-                <label>College : </label>
+            <div className="input-box">
+                <label className="required">College : </label>
                 <input type="text" value={college} onChange={onCollegeChangeHnd}/>
+                <div className="error"></div>
             </div>
-            <div>
-                <input type="button" value="Back" onClick={onBackBtnClickHnd}/>
-                <input type="button" value="Update User" onClick={onsubmitBtnClickHnd}/>
+            <div className="input-box">
+                <input type="button" className="button-container" value="Back" onClick={onBackBtnClickHnd}/>
+                <input type="button" className="button-container" value="Update User" onClick={onsubmitBtnClickHnd}/>
+            </div>
             </div>
         </form>
     </div>
+    </body>
     );
 };
 

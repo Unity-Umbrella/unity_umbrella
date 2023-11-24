@@ -70,14 +70,14 @@ const Crud = () => {
     return(
         <>
         <article className="article-header">
-            <header>
+            {/* <header>
                 <h1>Unity Umbrella</h1>
-            </header>
+            </header> */}
         </article>
 
         <section className="section-content">
             {shownPage === PageEnum.list && (
-            <><input type="button" value="Add User" className="add-user-btn" onClick={onAddUserClickHnd}/>
+            <><input type="button" value="ADD USER" className="add-user-btn" onClick={onAddUserClickHnd}/>
             <UserList list={userList} onDeleteClickHnd={deleteUser} onEdit={editUserData}/>
         </>
         )}

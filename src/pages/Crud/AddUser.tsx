@@ -7,6 +7,8 @@ type Props ={
     onSubmitClickHnd: (data: IUser) => void
 };
 
+
+
 const AddUser = (props: Props) => {
 
     const [firstName, setFirstName] = useState("");
@@ -26,6 +28,7 @@ const AddUser = (props: Props) => {
     const onEmailChangeHnd =(e: any)=>{
         setEmail(e.target.value)
     }
+    
     const onCampusChangeHnd =(e: any)=>{
         setCampus(e.target.value)
     }
@@ -46,38 +49,49 @@ const AddUser = (props: Props) => {
         onBackBtnClickHnd();
 
     }
+
+    
     return (
-    <div className="form-container">
+    <body>
+     
+    <div className="form-container"> 
         <div>
             <h3>Add User</h3>
         </div>
         <form onSubmit={onsubmitBtnClickHnd}>
-            <div>
-                <label>First Name : </label>
-                <input type="text" value={firstName} onChange={onFirstNameChangeHnd} />
+            <div className="content">
+            <div className="input-box">
+                <label className="required">First Name : </label>
+                <input type="text" value={firstName}  placeholder="Enter your first name" onChange={onFirstNameChangeHnd} required />
             </div>
-            <div>
-                <label>Last Name : </label>
-                <input type="text" value={lastName} onChange={onLastNameChangeHnd}/>
+            <div className="input-box">
+                <label className="required">Last Name : </label>
+                <input type="text" value={lastName} placeholder="Enter your last name" onChange={onLastNameChangeHnd} required/>
             </div>
-            <div>
-                <label> Email : </label>
-                <input type="text" value={email} onChange={onEmailChangeHnd}/>
+            <div className="input-box">
+                <label className="required"> Email : </label>
+                <input type="text" value={email} placeholder="Enter your email address" onChange={onEmailChangeHnd} required/>
             </div>
-            <div>
-                <label>Campus : </label>
-                <input type="text" value={campus} onChange={onCampusChangeHnd}/>
+            <div className="input-box">
+                <label className="required">Campus : </label>
+                <input type="text" value={campus} placeholder="Enter your campus name" onChange={onCampusChangeHnd} required/>
             </div>
-            <div>
-                <label>College : </label>
-                <input type="text" value={college} onChange={onCollegeChangeHnd}/>
+            <div className="input-box">
+                <label className="required">College : </label>
+                <input type="text" value={college} placeholder="Enter your clg name" onChange={onCollegeChangeHnd} required/>
             </div>
-            <div>
-                <input type="button" value="Back" onClick={onBackBtnClickHnd}/>
-                <input type="button" value="Add User" onClick={onsubmitBtnClickHnd}/>
+            <div className="input-box">
+                <input type="button" className="button-container" value="Back" onClick={onBackBtnClickHnd}/>
+                <input type="button" className="button-container" value="Add User" onClick={onsubmitBtnClickHnd}/>
+            </div>
             </div>
         </form>
     </div>
+
+    <div id="errorMessages"></div>
+
+    </body>
+    
     );
 };
 

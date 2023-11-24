@@ -3,6 +3,7 @@ import "./UserList.style.css";
 import UserModal from "./UserModal";
 import UserModel from "./UserModal";
 import { IUser } from "./UserType";
+import DataTable from "react-data-table-component";
 
 type Props = {
     list: IUser[];
@@ -25,9 +26,8 @@ const UserList = (props: Props) => {
     return (
     <div>
         <article>
-            <h3 className="list-header">User List</h3>
+            <h3 className="list-header">USER LIST</h3>
         </article>
-
 <table>
   <tr>
     <th>Name</th>
@@ -46,9 +46,10 @@ const UserList = (props: Props) => {
             <td>{user.collegeName}</td>
             <td>
                 <div>
-                    <input type="button" value="View" onClick={() => viewUser(user)} />
-                    <input type="button" value="Edit" onClick={() => onEdit(user)} />
-                    <input type="button" value="Delete" onClick={() => onDeleteClickHnd(user)} />
+                    <input type="button" className="view-button" id="view-view" value="VIEW" onClick={() => viewUser(user)} />
+                    <input type="button" className="edit-button" value="EDIT" onClick={() => onEdit(user)} />
+                    <input type="button" className="delete-button" value="DELETE" onClick={() => onDeleteClickHnd(user)} />
+                    
                 </div>
             </td>
         </tr>
@@ -57,9 +58,11 @@ const UserList = (props: Props) => {
   
   
 </table>
+
 {showModal && dataToShow !== null && ( 
     <UserModal onClose={onCloseModal}  data={dataToShow}/> 
 )}
+
     </div>
     );
 

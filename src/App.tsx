@@ -10,11 +10,11 @@ import LoginPage from "./pages/Login/Login";
 import About from "./pages/AboutUs/AboutUs";
 import Chatpg from "./pages/ChatPage/ChatPage";
 import Admin from "./pages/AdminPortal/Admin";
-import Dashboard from "./pages/Dashboard/dashboard";
-import Sidebar from './components/Sidebar/Sidebar';
+import Dashboard from "./pages/dashboard/dashboard";
 import { MultiChatWindow } from 'react-chat-engine-advanced';
 import { Table } from '@mui/material';
 import Crud from './pages/Crud/Crud';
+import Sidebar from './components/Sidebar/Sidebar';
 
 const theme = createTheme();
 
@@ -23,7 +23,7 @@ function App() {
       <Router>
           <div className="App">
               <Header />
-              <Sidebar />
+              
               <Table/>
               <Routes>
                   <Route path="/" element={<Home/>}/>

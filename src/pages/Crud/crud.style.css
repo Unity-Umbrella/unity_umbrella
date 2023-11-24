@@ -12,7 +12,42 @@
 }
 
 .add-user-btn{
+    
     float: right;
-    margin-bottom: 5px;
+    margin-bottom: 25px;
+    padding: 25px 35px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #27ae60;
+    color: #deece5;
+    background-color: #1e6091;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    align-items: center;
 }
+
+.add-user-btn:hover {
+    background-color: #285b9c;
+    color: #141414;
+  }
+
+.add-user-btn:focus {
+    outline: none; 
+  }
+
+h1{
+    padding: 30px;
+    align-items: center;
+    /* background-color: rgb(28, 56, 71); */
+    font-size: 20px;
+    width: 100%;
+    height: 50%;
+    display: flex;
+justify-content: center;
+
+}
+
 

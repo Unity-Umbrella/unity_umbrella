@@ -12,4 +12,5 @@ export const colors = {
     lightGray: '#eaeaea',
     success: '#28a745',
     danger: '#dc3545',
+    black:"black",
 };

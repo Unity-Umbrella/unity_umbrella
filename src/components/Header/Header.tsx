@@ -12,7 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { colors } from '../../styles/colors';
 import { Link } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import logo from "../../../public/images/logodesign.svg";
 const Header: React.FC = () => {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -36,11 +36,9 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <AppBar position="static" style={{ backgroundColor: colors.primary }}>
-      <Toolbar>
-        <Typography variant="h6" component="div">
-          Unity Umbrella
-        </Typography>
+    <AppBar position="static" style={{ backgroundColor: colors.black }}>
+        <Toolbar>
+        <img src="images/logoD.jpg" alt="Your Logo" style={{ marginRight: '10px', width: '5vh', height:'5vh'}} /> 
 
         {isSmallScreen ? (
           <>

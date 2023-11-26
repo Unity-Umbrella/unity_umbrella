@@ -4,6 +4,9 @@ import UserModal from "./UserModal";
 import UserModel from "./UserModal";
 import { IUser } from "./UserType";
 import DataTable from "react-data-table-component";
+import {BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, 
+    BsListCheck, BsMenuButtonWideFill, BsFillGearFill, BsChatFill, BsPhoneFill, BsBook,
+     BsHouseAddFill, BsHouse, Bs1SquareFill} from 'react-icons/bs'
 
 type Props = {
     list: IUser[];
@@ -32,6 +35,10 @@ const UserList = (props: Props) => {
   <tr>
     <th>Name</th>
     <th>Email</th>
+    <th>Phone Number</th>
+    <th>Date Of Birth</th>
+    <th>City</th>
+    <th>Country</th>
     <th>Campus Name</th>
     <th>College Name</th>
     <th>Actions</th>
@@ -42,6 +49,10 @@ const UserList = (props: Props) => {
         <tr key={user.id}>
             <td>{`${user.firstName} ${user.lastName}`}</td>
             <td>{user.email}</td>
+            <td>{user.phoneno}</td>
+            <td>{user.dob}</td>
+            <td>{user.city}</td>
+            <td>{user.country}</td>
             <td>{user.campusName}</td>
             <td>{user.collegeName}</td>
             <td>

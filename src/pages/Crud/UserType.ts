@@ -3,6 +3,10 @@ export interface IUser{
     firstName: string;
     lastName: string;
     email: string;
+    phoneno: string;
+    dob:string;
+    city:string;
+    country:string;
     campusName: string;
     collegeName: string;
 }

@@ -15,6 +15,10 @@ const EditUser = (props: Props) => {
     const [firstName, setFirstName] = useState(data.firstName);
     const [lastName, setLastName] = useState(data.lastName);
     const [email, setEmail] = useState(data.email);
+    const [phoneno, setPhoneno] = useState(data.phoneno);
+    const [dob, setDob] = useState(data.dob);
+    const [city, setCity] = useState(data.city);
+    const [country, setCountry] = useState(data.country);
     const [campus, setCampus] = useState(data.campusName);
     const [college, setCollege] = useState(data.collegeName);
 
@@ -28,6 +32,19 @@ const EditUser = (props: Props) => {
     }
     const onEmailChangeHnd =(e: any)=>{
         setEmail(e.target.value)
+    }
+    const onPhoneChangeHnd =(e: any)=>{
+        setPhoneno(e.target.value)
+    }
+    const onDobChangeHnd =(e: any)=>{
+        setDob(e.target.value)
+    }
+    const onCityChangedHnd=(e:any)=>{
+        setCity(e.target.value)
+    }
+
+    const onCountryChangedHnd=(e:any)=>{
+        setCountry(e.target.value)
     }
     const onCampusChangeHnd =(e: any)=>{
         setCampus(e.target.value)
@@ -43,6 +60,10 @@ const EditUser = (props: Props) => {
             firstName : firstName,
             lastName: lastName,
             email:email,
+            phoneno:phoneno,
+            dob:dob,
+            city:city,
+            country:country,
             campusName:campus,
             collegeName: college
         }
@@ -74,6 +95,24 @@ const EditUser = (props: Props) => {
                 <label className="required"> Email : </label>
                 <input type="text" value={email} onChange={onEmailChangeHnd}/>
                 <div className="error"></div>
+            </div>
+            <div className="input-box">
+                <label className="required"> Phone No : </label>
+                <input type="text" value={[phoneno]} onChange={onPhoneChangeHnd}/>
+                <div className="error"></div>
+            </div>
+            <div className="input-box">
+                <label className="required"> Dob : </label>
+                <input type="date" value={dob} onChange={onDobChangeHnd}/>
+                <div className="error"></div>
+            </div>
+            <div className="input-box">
+                <label className="required"> City : </label>
+                <input type="text" value={city} onChange={onCityChangedHnd} required/>
+            </div>
+            <div className="input-box">
+                <label className="required"> Country : </label>
+                <input type="text" value={country} onChange={onCountryChangedHnd} required/>
             </div>
             <div className="input-box">
                 <label className="required">Campus : </label>

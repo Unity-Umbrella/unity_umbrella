@@ -24,6 +24,18 @@ const UserModal = (props: Props) => {
                         <label>Email : {data.email}</label>
                     </div>
                     <div>
+                        <label>Phone Number : {data.phoneno}</label>
+                    </div>
+                    <div>
+                        <label>Date Of Birth : {data.dob}</label>
+                    </div>
+                    <div>
+                        <label>City : {data.city}</label>
+                    </div>
+                    <div>
+                        <label>Country : {data.country}</label>
+                    </div>
+                    <div>
                         <label>Campus : {data.campusName}</label>
                     </div>
                     <div>

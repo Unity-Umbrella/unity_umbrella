@@ -14,6 +14,10 @@ const AddUser = (props: Props) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+    const [phoneno, setPhoneno] = useState("");
+    const [dob, setDob] = useState("");
+    const [city, setCity] = useState("");
+    const [country, setCountry] = useState("");
     const [campus, setCampus] = useState("");
     const [college, setCollege] = useState("");
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
@@ -28,6 +32,22 @@ const AddUser = (props: Props) => {
     }
     const onEmailChangeHnd =(e: any)=>{
         setEmail(e.target.value)
+    }
+
+    const onPhoneNoChangeHnd =(e: any)=>{
+        setPhoneno(e.target.value)
+    }
+
+    const onDobChangeHnd=(e:any)=>{
+        setDob(e.target.value)
+    }
+
+    const onCityChangedHnd=(e:any)=>{
+        setCity(e.target.value)
+    }
+
+    const onCountryChangedHnd=(e:any)=>{
+        setCountry(e.target.value)
     }
     
     const onCampusChangeHnd =(e: any)=>{
@@ -51,6 +71,22 @@ const AddUser = (props: Props) => {
       if (!email.trim()) {
           errors.push('Email is required');
       }
+
+      if (!phoneno.trim()) {
+        errors.push('Phone Number is required');
+    }
+
+    if (!dob.trim()) {
+        errors.push('Date Of Birth is required');
+    }
+
+    if (!city.trim()){
+        errors.push('City is required');
+    }
+
+    if (!country.trim()){
+        errors.push('Country is required');
+    }
 
       if (!campus.trim()) {
         errors.push('Campus Name is required');
@@ -94,6 +130,10 @@ const AddUser = (props: Props) => {
             firstName : firstName,
             lastName: lastName,
             email:email,
+            phoneno: phoneno,
+            dob:dob,
+            city:city,
+            country:country,
             campusName:campus,
             collegeName: college
         }
@@ -127,6 +167,22 @@ const AddUser = (props: Props) => {
             <div className="input-box">
                 <label className="required"> Email : </label>
                 <input type="text" value={email} placeholder="Enter your email address" onChange={onEmailChangeHnd} required/>
+            </div>
+            <div className="input-box">
+                <label className="required"> Phone Number : </label>
+                <input type="text" value={phoneno} placeholder="Enter your Phone Number" onChange={onPhoneNoChangeHnd} required/>
+            </div>
+            <div className="input-box">
+                <label className="required"> Date Of Birth : </label>
+                <input type="date" value={dob} placeholder="Enter your Date Of Birth" onChange={onDobChangeHnd} required/>
+            </div>
+            <div className="input-box">
+                <label className="required"> City : </label>
+                <input type="text" value={city} placeholder="Enter your City" onChange={onCityChangedHnd} required/>
+            </div>
+            <div className="input-box">
+                <label className="required"> Country : </label>
+                <input type="text" value={country} placeholder="Enter your Country" onChange={onCountryChangedHnd} required/>
             </div>
             <div className="input-box">
                 <label className="required">Campus : </label>

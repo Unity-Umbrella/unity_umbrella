@@ -11,36 +11,15 @@ import {BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill,
 function dashbd()
 {
     return(
-        <><main className='main-title'>
-            {/* <div className='main-title'>
-                <h3>Dashboard</h3>
-            </div>
-            <div className='main-cards'>
-                <div className='card-inner'>
-                    <h3>USERS</h3>
-                    <BsPeopleFill className='card_iicon' />
-                </div>
+        <>
+        <main className='main-title'>
+            
+        </main>
+        <div id='grid-container'>
+            <Sidebar />
 
-                <div className='card-inner'>
-                    <h3>USERS</h3>
-                    <BsPeopleFill className='card_iicon' />
-                </div>
-
-                <div className='card-inner'>
-                    <h3>USERS</h3>
-                    <BsPeopleFill className='card_iicon' />
-                </div>
-
-                <div className='card-inner'>
-                    <h3>USERS</h3>
-                    <BsPeopleFill className='card_iicon' />
-                </div>
-                <h1>300</h1>
-            </div> */}
-        </main><div id='grid-container'>
-                <Sidebar />
-
-            </div></>
+        </div>
+        </>
     );
 };
 

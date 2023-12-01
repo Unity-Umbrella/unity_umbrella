@@ -16,12 +16,12 @@ function Sidebar(){
 
             <ul className='sidebar-list'>
                 <li className='sidebar-list-item'>
-                    <a href="">
+                    <a href="Home.tsx">
                         <BsHouseAddFill className='icon'/>Home
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
-                    <a href="">
+                    <a href="pages/Login/Login.tsx">
                         <Bs1SquareFill className='icon'/>Login
                     </a>
                 </li>

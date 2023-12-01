@@ -11,6 +11,24 @@ export interface IUser{
     collegeName: string;
 }
 
+// export interface IUserHouse{
+//     id: string;
+//     houseOwner: string;
+//     houseNumber: string;
+//     street: string;
+//     postalcode: string;
+//     price:string;
+//     bedroom:string;
+//     washroom:string;
+//     description: string;
+//     utilitieshydro: string;
+//     utilitieswater: string;
+//     utilitiesheat: string;
+//     houselongitude: string;
+//     utilitieslatitude: string;
+//     utilitieslocation: string;
+// }
+
 //  export const dummyUserList : IUser[] = [{
 //     id: new Date().toJSON().toString(),
 //     firstName: "Adam",

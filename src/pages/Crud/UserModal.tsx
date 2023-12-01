@@ -48,3 +48,4 @@ const UserModal = (props: Props) => {
 };
 
 export default UserModal;
+

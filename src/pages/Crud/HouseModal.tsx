@@ -1,3 +1,15 @@
+// import { useState } from "react";
+
+// const HouseModal=()=>{
+//     return(
+//         <div>
+
+//         </div>
+//     )
+// }
+
+// export default HouseModal;
+
 import "./UserModal.style.css";
 import { IUserHouse } from "./HouseType";
 

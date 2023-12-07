@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import "./UserForm.style.css";
 import { IUserHouse } from "./HouseType";
@@ -9,7 +10,7 @@ type Props ={
 
 
 
-const EditHouse = (props: Props) => {
+const AddHouse = (props: Props) => {
 
     const [houseOwner, setHouseOwner] = useState("");
     const [houseNumber, setHouseNumber] = useState("");
@@ -169,7 +170,7 @@ const EditHouse = (props: Props) => {
 
 
         const data: IUserHouse={
-            id: new Date().toJSON().toString(),
+            houseid: new Date().toJSON().toString(),
             houseOwner : houseOwner,
             houseNumber: houseNumber,
             street:street,
@@ -214,51 +215,51 @@ const EditHouse = (props: Props) => {
             </div>
             <div className="input-box">
                 <label className="required"> Street : </label>
-                <input type="text" value={street} placeholder="Enter your email address" onChange={onStreetChangeHndHouse} required/>
+                <input type="text" value={street} placeholder="Enter Street address" onChange={onStreetChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required"> Postal Code : </label>
-                <input type="text" value={postalcode} placeholder="Enter your Phone Number" onChange={onPostalCodeChangeHndHouse} required/>
+                <input type="text" value={postalcode} placeholder="Enter your Postal Code" onChange={onPostalCodeChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required"> Price : </label>
-                <input type="date" value={price} placeholder="Enter your Date Of Birth" onChange={onPriceChangeHndHouse} required/>
+                <input type="number" value={price} placeholder="Enter the price" onChange={onPriceChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required"> Bedroom : </label>
-                <input type="text" value={bedroom} placeholder="Enter your City" onChange={onBedroomChangedHndHouse} required/>
+                <input type="number" value={bedroom} placeholder="Enter number of bedrooms" onChange={onBedroomChangedHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required"> Washroom : </label>
-                <input type="text" value={washroom} placeholder="Enter your Country" onChange={onWashroomChangedHndHouse} required/>
+                <input type="number" value={washroom} placeholder="Enter number of washrooms" onChange={onWashroomChangedHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">Description : </label>
-                <input type="text" value={description} placeholder="Enter your campus name" onChange={onDescriptionChangeHndHouse} required/>
+                <input type="text" value={description} placeholder="Enter house description" onChange={onDescriptionChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">Utilities Hydro : </label>
-                <input type="text" value={utilitieshydro} placeholder="Enter your clg name" onChange={onUtilitiesHydroChangeHndHouse} required/>
+                <input type="number" value={utilitieshydro} placeholder="Enter utilities hydro" onChange={onUtilitiesHydroChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">Utilities Water : </label>
-                <input type="text" value={utilitieswater} placeholder="Enter your clg name" onChange={onUtilitiesWaterChangeHndHouse} required/>
+                <input type="number" value={utilitieswater} placeholder="Enter utilities water" onChange={onUtilitiesWaterChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">Utilities Heat : </label>
-                <input type="text" value={utilitiesheat} placeholder="Enter your clg name" onChange={onUtilitiesHeatChangeHndHouse} required/>
+                <input type="number" value={utilitiesheat} placeholder="Enter utilities heat" onChange={onUtilitiesHeatChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">House Longitude : </label>
-                <input type="text" value={houselongitude} placeholder="Enter your clg name" onChange={onHouseLongitudeChangeHndHouse} required/>
+                <input type="text" value={houselongitude} placeholder="Enter house longitude" onChange={onHouseLongitudeChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">House Latitude : </label>
-                <input type="text" value={houselatitude} placeholder="Enter your clg name" onChange={onHouseLatitudeChangeHndHouse} required/>
+                <input type="text" value={houselatitude} placeholder="Enter house latitude" onChange={onHouseLatitudeChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">House Location : </label>
-                <input type="text" value={houselocation} placeholder="Enter your clg name" onChange={onHouseLocationChangeHndHouse} required/>
+                <input type="text" value={houselocation} placeholder="Enter house location" onChange={onHouseLocationChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <input type="button" className="button-container" value="Back" onClick={onBackBtnClickHndHouse}/>
@@ -275,4 +276,4 @@ const EditHouse = (props: Props) => {
     );
 };
 
-export default EditHouse;
+export default AddHouse;

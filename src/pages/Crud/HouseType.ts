@@ -1,5 +1,5 @@
 export interface IUserHouse{
-    id: string;
+    houseid: string;
     houseOwner: string;
     houseNumber: string;
     street: string;
@@ -17,7 +17,7 @@ export interface IUserHouse{
 }
 
  export const dummyHouseList : IUserHouse[] = [{
-    id: new Date().toJSON().toString(),
+    houseid: new Date().toJSON().toString(),
     houseOwner: "Adam",
     houseNumber: "758",
     street: "Hemlock Street",

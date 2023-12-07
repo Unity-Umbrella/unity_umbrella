@@ -1,3 +1,11 @@
+// import { useState } from "react";
+
+// const houseforms=()=>{
+
+// }
+
+// export default houseforms;
+
 import React from 'react';
 
 const houseform = document.getElementById('houseform');
@@ -23,6 +31,5 @@ houseform?.addEventListener('submit', e=> {
 });
 
 const validateInputs=()=>{
-    //const firstNameValue = firstName.value.trim();
 
 }

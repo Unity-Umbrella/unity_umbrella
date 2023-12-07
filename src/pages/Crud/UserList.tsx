@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./UserList.style.css";
 import UserModal from "./UserModal";
-import HouseModal from "./HouseModal";
+// import HouseModal from "./HouseModal";
 import UserModel from "./UserModal";
 import { IUser } from "./UserType";
 import { IUserHouse } from "./HouseType";
@@ -21,12 +21,20 @@ type Props = {
 };
 
 const UserList = (props: Props) => {
+    //const {list, onDeleteClickHnd, onEdit} = props;
     const {list, houseList, onDeleteClickHnd, onDeleteClickHndHouse, onEdit, onEditHouse} = props;
     const [showModal, setShowModal] = useState(false);
-    //const [dataToShow, setDataToShow] = useState(null as IUser | IUserHouse | null);
+    //const [dataToShow, setDataToShow] = useState(null as IUser | null);
     const [dataToShow, setDataToShow] = useState<IUser | IUserHouse | null>(null);
 
-    const viewUser = (data: IUser | IUserHouse) => {
+    //const viewUser = (data: IUser | IUserHouse) => {
+    const viewUser = (data: IUser) => {
+        setDataToShow(data)
+        setShowModal(true);
+    };
+
+
+    const viewHouse = (data: IUserHouse) => {
         setDataToShow(data)
         setShowModal(true);
     };
@@ -110,7 +118,7 @@ const UserList = (props: Props) => {
   {houseList.map((house) => {
     console.log(house);
     return(
-        <tr key={house.id}>
+        <tr key={house.houseid}>
             <td>{house.houseOwner}</td>
             <td>{house.houseNumber}</td>
             <td>{house.street}</td>
@@ -127,7 +135,7 @@ const UserList = (props: Props) => {
             <td>{house.houselocation}</td>
             <td>
                 <div>
-                    <input type="button" className="view-button" id="view-view" value="VIEW" onClick={() => viewUser(house)} />
+                    <input type="button" className="view-button" id="view-view" value="VIEW" onClick={() => viewHouse(house)} />
                     <input type="button" className="edit-button" value="EDIT" onClick={() => onEditHouse(house)} />
                     <input type="button" className="delete-button" value="DELETE" onClick={() => onDeleteClickHndHouse(house)} />
                     

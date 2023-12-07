@@ -1,32 +1,49 @@
+// import { useState } from "react";
+
+// const EditHouse=()=>{
+//     return(
+//         <div>
+// EditHouse
+//         </div>
+//     )
+// }
+
+// export default EditHouse;
+
+
+
 import { useState } from "react";
 import "./UserForm.style.css";
 import { IUserHouse } from "./HouseType";
 
 type Props ={
+    data : IUserHouse;
     onBackBtnClickHndHouse : () => void;
-    onSubmitClickHndHouse: (data: IUserHouse) => void
+    onUpdateClickHndHouse: (data: IUserHouse) => void
 };
 
 
 
 const EditHouse = (props: Props) => {
 
-    const [houseOwner, setHouseOwner] = useState("");
-    const [houseNumber, setHouseNumber] = useState("");
-    const [street, setStreet] = useState("");
-    const [postalcode, setPostalCode] = useState("");
-    const [price, setPrice] = useState("");
-    const [bedroom, setBedroom] = useState("");
-    const [washroom, setWashroom] = useState("");
-    const [description, setDescription] = useState("");
-    const [utilitieshydro, setUtilitiesHydro] = useState("");
-    const [utilitieswater, setUtilitiesWater] = useState("");
-    const [utilitiesheat, setUtilitiesHeat] = useState("");
-    const [houselongitude, setHouseLongitude] = useState("");
-    const [houselatitude, setHouseLatitude] = useState("");
-    const [houselocation, setHouseLocation] = useState("");
+    const {data, onBackBtnClickHndHouse, onUpdateClickHndHouse} = props;
+
+    const [houseOwner, setHouseOwner] = useState(data.houseOwner);
+    const [houseNumber, setHouseNumber] = useState(data.houseNumber);
+    const [street, setStreet] = useState(data.street);
+    const [postalcode, setPostalCode] = useState(data.postalcode);
+    const [price, setPrice] = useState(data.price);
+    const [bedroom, setBedroom] = useState(data.bedroom);
+    const [washroom, setWashroom] = useState(data.washroom);
+    const [description, setDescription] = useState(data.description);
+    const [utilitieshydro, setUtilitiesHydro] = useState(data.utilitieshydro);
+    const [utilitieswater, setUtilitiesWater] = useState(data.utilitieswater);
+    const [utilitiesheat, setUtilitiesHeat] = useState(data.utilitiesheat);
+    const [houselongitude, setHouseLongitude] = useState(data.houselongitude);
+    const [houselatitude, setHouseLatitude] = useState(data.houselatitude);
+    const [houselocation, setHouseLocation] = useState(data.houselocation);
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
-    const { onBackBtnClickHndHouse, onSubmitClickHndHouse} = props;
+    //const { onBackBtnClickHndHouse, onUpdateClickHndHouse} = props;
 
     const onHouseOwnerChangeHndHouse =(e: any)=>{
         setHouseOwner(e.target.value)
@@ -100,15 +117,15 @@ const EditHouse = (props: Props) => {
         errors.push('Postal Code is required');
     }
 
-    if (!price.trim()) {
+    if (!price) {
         errors.push('Price is required');
     }
 
-    if (!bedroom.trim()){
+    if (!bedroom){
         errors.push('bedroom is required');
     }
 
-    if (!washroom.trim()){
+    if (!washroom){
         errors.push('Washroom is required');
     }
 
@@ -116,15 +133,15 @@ const EditHouse = (props: Props) => {
         errors.push('Description is required');
       }
 
-      if (!utilitieshydro.trim()) {
+      if (!utilitieshydro) {
         errors.push('Utilities Hydro is required');
       }
 
-      if (!utilitieswater.trim()) {
+      if (!utilitieswater) {
         errors.push('Utilities Water is required');
       }
 
-      if (!utilitiesheat.trim()) {
+      if (!utilitiesheat) {
         errors.push('Utilities Heat is required');
       }
 
@@ -168,24 +185,24 @@ const EditHouse = (props: Props) => {
         if (errorMessages.length === 0) {
 
 
-        const data: IUserHouse={
-            id: new Date().toJSON().toString(),
+        const updateData: IUserHouse={
+            houseid: data.houseid,
             houseOwner : houseOwner,
             houseNumber: houseNumber,
             street:street,
             postalcode: postalcode,
-            price:parseInt(price, 10),
-            bedroom:parseInt(bedroom, 10),
-            washroom:parseInt(washroom, 10),
+            price:price,
+            bedroom:bedroom,
+            washroom:washroom,
             description:description,
-            utilitieshydro: parseInt(utilitieshydro, 10),
-            utilitieswater: parseInt(utilitieswater, 10),
-            utilitiesheat: parseInt(utilitiesheat, 10),
+            utilitieshydro: utilitieshydro,
+            utilitieswater: utilitieswater,
+            utilitiesheat: utilitiesheat,
             houselongitude: houselongitude,
             houselatitude: houselatitude,
             houselocation: houselocation
         }
-        onSubmitClickHndHouse(data);
+        onUpdateClickHndHouse(updateData);
         onBackBtnClickHndHouse();
       }
       else{
@@ -214,55 +231,55 @@ const EditHouse = (props: Props) => {
             </div>
             <div className="input-box">
                 <label className="required"> Street : </label>
-                <input type="text" value={street} placeholder="Enter your email address" onChange={onStreetChangeHndHouse} required/>
+                <input type="text" value={street} placeholder="Enter street address" onChange={onStreetChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required"> Postal Code : </label>
-                <input type="text" value={postalcode} placeholder="Enter your Phone Number" onChange={onPostalCodeChangeHndHouse} required/>
+                <input type="text" value={postalcode} placeholder="Enter your Postal Code" onChange={onPostalCodeChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required"> Price : </label>
-                <input type="date" value={price} placeholder="Enter your Date Of Birth" onChange={onPriceChangeHndHouse} required/>
+                <input type="number" value={price} placeholder="Enter the price" onChange={onPriceChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required"> Bedroom : </label>
-                <input type="text" value={bedroom} placeholder="Enter your City" onChange={onBedroomChangedHndHouse} required/>
+                <input type="number" value={bedroom} placeholder="Enter number of bedrooms" onChange={onBedroomChangedHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required"> Washroom : </label>
-                <input type="text" value={washroom} placeholder="Enter your Country" onChange={onWashroomChangedHndHouse} required/>
+                <input type="number" value={washroom} placeholder="Enter number of washrooms" onChange={onWashroomChangedHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">Description : </label>
-                <input type="text" value={description} placeholder="Enter your campus name" onChange={onDescriptionChangeHndHouse} required/>
+                <input type="text" value={description} placeholder="Enter house description" onChange={onDescriptionChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">Utilities Hydro : </label>
-                <input type="text" value={utilitieshydro} placeholder="Enter your clg name" onChange={onUtilitiesHydroChangeHndHouse} required/>
+                <input type="number" value={utilitieshydro} placeholder="Enter utilities hydro" onChange={onUtilitiesHydroChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">Utilities Water : </label>
-                <input type="text" value={utilitieswater} placeholder="Enter your clg name" onChange={onUtilitiesWaterChangeHndHouse} required/>
+                <input type="number" value={utilitieswater} placeholder="Enter utilities water" onChange={onUtilitiesWaterChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">Utilities Heat : </label>
-                <input type="text" value={utilitiesheat} placeholder="Enter your clg name" onChange={onUtilitiesHeatChangeHndHouse} required/>
+                <input type="number" value={utilitiesheat} placeholder="Enter utilities heat" onChange={onUtilitiesHeatChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">House Longitude : </label>
-                <input type="text" value={houselongitude} placeholder="Enter your clg name" onChange={onHouseLongitudeChangeHndHouse} required/>
+                <input type="text" value={houselongitude} placeholder="Enter house longitude" onChange={onHouseLongitudeChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">House Latitude : </label>
-                <input type="text" value={houselatitude} placeholder="Enter your clg name" onChange={onHouseLatitudeChangeHndHouse} required/>
+                <input type="text" value={houselatitude} placeholder="Enter house latitude" onChange={onHouseLatitudeChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <label className="required">House Location : </label>
-                <input type="text" value={houselocation} placeholder="Enter your clg name" onChange={onHouseLocationChangeHndHouse} required/>
+                <input type="text" value={houselocation} placeholder="Enter house location" onChange={onHouseLocationChangeHndHouse} required/>
             </div>
             <div className="input-box">
                 <input type="button" className="button-container" value="Back" onClick={onBackBtnClickHndHouse}/>
-                <input type="button" className="button-container" value="Edit House Details" onClick={onSubmitBtnClickHndHouse}/>
+                <input type="button" className="button-container" value="Update House Details" onClick={onSubmitBtnClickHndHouse}/>
             </div>
             </div>
         </form>

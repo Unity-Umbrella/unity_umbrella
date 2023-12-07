@@ -43,4 +43,7 @@ export enum PageEnum{
     list,
     add,
     edit,
+listHouse,
+houseAdd,
+houseEdit
 }

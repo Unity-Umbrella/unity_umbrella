@@ -15,16 +15,19 @@ import {BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill,
 type Props = {
     list: IUser[];
     houseList: IUserHouse[];
+    reviewList: IReview[]; 
     onDeleteClickHnd: (data: IUser) => void;
     onDeleteClickHndHouse: (data: IUserHouse) => void;
+    onDeleteClickHndReviews: (data: IReview) => void;
     onEdit: (data:IUser) => void;
     onEditHouse: (data:IUserHouse) => void;
+    onEditReviews: (data:IReview) => void;
     
 };
 
 const UserList = (props: Props) => {
     //const {list, onDeleteClickHnd, onEdit} = props;
-    const {list, houseList, onDeleteClickHnd, onDeleteClickHndHouse, onEdit, onEditHouse} = props;
+    const {list, houseList, reviewList, onDeleteClickHnd, onDeleteClickHndHouse, onDeleteClickHndReviews, onEdit, onEditHouse, onEditReviews} = props;
     const [showModal, setShowModal] = useState(false);
     //const [dataToShow, setDataToShow] = useState(null as IUser | null);
     const [dataToShow, setDataToShow] = useState<IUser | IUserHouse | null>(null);
@@ -169,19 +172,18 @@ const UserList = (props: Props) => {
     <th>Reviewed By</th>
     <th>Actions</th>
   </tr>
-  {list.map((review) => {
+  {reviewList.map((review) => {
     console.log(review);
     return(
         <tr key={review.id}>
-            <td>{`${review.firstName} ${review.lastName}`}</td>
-            <td>{review.email}</td>
-            <td>{review.phoneno}</td>
-            <td>{review.dob}</td>
+            <td>{review.ratings}</td>
+            <td>{review.reviewsdesc}</td>
+            <td>{review.reviewdBy}</td>
             <td>
                 <div>
-                    <input type="button" className="view-button" id="view-view" value="VIEW" onClick={() => viewUser(review)} />
+                    {/* <input type="button" className="view-button" id="view-view" value="VIEW" onClick={() => viewUser(review)} />
                     <input type="button" className="edit-button" value="EDIT" onClick={() => onEdit(review)} />
-                    <input type="button" className="delete-button" value="DELETE" onClick={() => onDeleteClickHnd(review)} />
+                    <input type="button" className="delete-button" value="DELETE" onClick={() => onDeleteClickHnd(review)} /> */}
                     
                 </div>
             </td>

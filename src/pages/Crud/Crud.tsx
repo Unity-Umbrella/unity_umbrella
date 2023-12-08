@@ -12,15 +12,18 @@ import EditHouse from './EditHouse';
 
 import { IUserHouse, PageEnumm } from './HouseType';
 import AddHouse from './AddHouse';
+import { IReview } from './ReviewsType';
 
 const Crud = () => {
 
     const [userList, setUserList] = useState([] as IUser[]);
     const [houseList, setHouseList] = useState([] as IUserHouse[]);
+    const [reviewList, setReviewList] = useState([] as IReview[]);
     const [shownPage, setShownPage] = useState(PageEnum.list);
     const [shownPageHouse, setShownPageHouse] = useState(PageEnumm.houseList);
     const [dataToEdit, setDataToEdit] = useState({} as IUser);
     const [dataToEditHouse, setDataToEditHouse] = useState({} as IUserHouse);
+    const [dataToEditReviews, setDataToEditReviews] = useState({} as IReview);
 
     useEffect(() => {
         const listInString = window.localStorage.getItem("UserList")
@@ -67,6 +70,12 @@ const Crud = () => {
 
     }
 
+    const _setReviewList = (reviewList: IReview[]) => {
+        setReviewList(reviewList);
+        window.localStorage.setItem("ReviewList", JSON.stringify(reviewList));
+
+    }
+
     const deleteUser = (data: IUser) => {
         //to index from array that is user list, splice that and update new record
 
@@ -87,6 +96,16 @@ const Crud = () => {
         _setHouseList(tempList)
     };
 
+    const deleteReviews = (data: IReview) => {
+        //to index from array that is user list, splice that and update new record
+
+        const indexToDelete = reviewList.indexOf(data);
+        const tempList = [...reviewList];
+
+        tempList.splice(indexToDelete, 1);
+        _setReviewList(tempList)
+    };
+
     const editUserData = (data: IUser) => {
         setShownPage(PageEnum.edit);
         setDataToEdit(data)
@@ -96,6 +115,11 @@ const Crud = () => {
     const editHouseData = (data: IUserHouse) => {
         setShownPage(PageEnum.houseEdit);
         setDataToEditHouse(data)
+    };
+
+    const editReviewData = (data: IReview) => {
+        setShownPage(PageEnum.houseEdit);
+        setDataToEditReviews(data)
     };
 
     const updateData = (data: IUser) => {
@@ -130,7 +154,8 @@ const Crud = () => {
                         <input type="button" value="ADD HOUSE DETAILS" className="add-house-btn" onClick={onAddUserClickHndHouse} />
 
                         <UserList list={userList} onDeleteClickHnd={deleteUser} onEdit={editUserData}
-                            houseList={houseList} onDeleteClickHndHouse={deleteHouse} onEditHouse={editHouseData} />
+                            houseList={houseList} onDeleteClickHndHouse={deleteHouse} onEditHouse={editHouseData}
+                            reviewList={reviewList} onDeleteClickHndReviews={deleteReviews} onEditReviews={editReviewData} />
                     </> : ""
                 }
 

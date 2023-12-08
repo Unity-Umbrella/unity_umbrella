@@ -23,13 +23,15 @@ export class College {
 
     toJson(): string {
         return JSON.stringify({
-            collegeId: this.collegeId,
-            collegeName: this._collegeName
+            college_id: this.collegeId,
+            college_name: this._collegeName
         });
     }
 
+
     static fromJson(jsonString: string): College {
         const obj = JSON.parse(jsonString);
-        return new College(obj.collegeId, obj.collegeName);
+        console.log(obj);
+        return new College(obj.college_id, obj.college_name);
     }
 }

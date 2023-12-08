@@ -4,14 +4,14 @@ import {Location} from "./location";
 export class Campus {
     campusId: number;
     private _campusName: string;
-    private _college: College;
-    private _location: Location;
+    private _collegeId: number;
+    private _locationId: number;
 
-    constructor(campusId: number, campusName: string, college: College, location: Location) {
+    constructor(campusId: number, campusName: string, collegeId: number, locationId: number) {
         this.campusId = campusId;
         this._campusName = campusName;
-        this._college = college;
-        this._location = location;
+        this._collegeId = collegeId;
+        this._locationId = locationId;
     }
 
 
@@ -23,40 +23,38 @@ export class Campus {
         this._campusName = value;
     }
 
-    get college(): College {
-        return this._college;
+    get collegeId(): number {
+        return this._collegeId;
     }
 
-    set college(value: College) {
-        this._college = value;
+    set collegeId(value: number) {
+        this._collegeId = value;
     }
 
-    get location(): Location {
-        return this._location;
+    get locationId(): number {
+        return this._locationId;
     }
 
-    set location(value: Location) {
-        this._location = value;
+    set locationId(value: number) {
+        this._locationId = value;
     }
 
     toJson(): string {
         return JSON.stringify({
-            campusId: this.campusId,
-            campusName: this._campusName,
-            college: this._college.toJson(),
-            location: this._location.toJson()
+            campus_id: this.campusId,
+            campus_name: this._campusName,
+            FK_colleges_college_id: this._collegeId,
+            FK_locations_location_id: this._locationId
         });
     }
 
     static fromJson(jsonString: string): Campus {
         const obj = JSON.parse(jsonString);
-        const college = College.fromJson(JSON.stringify(obj.college));
-        const location = Location.fromJson(JSON.stringify(obj.location));
-        return new Campus(obj.campusId, obj.campusName, college, location);
+        return new Campus(obj.campus_id, obj.campus_name, obj.FK_colleges_college_id, obj.FK_locations_location_id);
     }
 
     toString(){
-        return `CampusId: ${this.campusId}, CampusName: ${this._campusName}, College: ${this._college.toString()}, Location: ${this._location.toString()}`;
+        return `CampusId: ${this.campusId}, CampusName: ${this._campusName}, College: ${this._collegeId.toString()}, Location: ${this._locationId.toString()}`;
     }
 
 }

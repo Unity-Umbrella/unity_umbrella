@@ -86,12 +86,12 @@ const Crud = () => {
         </>
         )}
 
-        {shownPage === PageEnum.add && (
+        {shownPage === PageEnum.add ?
         <AddUser 
         onBackBtnClickHnd={showListPage} 
         onSubmitClickHnd={addUser}
-        />
-        )}
+        /> : ""
+        }
 
         {shownPage === PageEnum.edit && <EditUser data={dataToEdit} onBackBtnClickHnd={showListPage} onUpdateClickHnd={updateData}/>}
         </section>

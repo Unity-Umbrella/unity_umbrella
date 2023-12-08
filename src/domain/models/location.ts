@@ -35,14 +35,14 @@ export class Location{
 
     toJson(): string {
         return JSON.stringify({
-            locationId: this.locationId,
-            city: this._city,
-            country: this._country
+            location_id: this.locationId,
+            location_city: this._city,
+            location_country: this._country
         });
     }
 
     static fromJson(jsonString: string): Location {
         const obj = JSON.parse(jsonString);
-        return new Location(obj.locationId, obj.city, obj.country);
+        return new Location(obj.location_id, obj.location_city, obj.location_country);
     }
 }

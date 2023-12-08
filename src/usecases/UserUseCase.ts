@@ -43,7 +43,7 @@ export class UserUseCase {
         switch (sortBy) {
             case StudentFilter.College:
                 usersList.sort((a, b) => {
-                    return a.campus.college.collegeName > b.campus.college.collegeName ? 1 : -1
+                    return a.campus.collegeId > b.campus.collegeId ? 1 : -1
                 });
                 break;
             case StudentFilter.Email:

@@ -5,6 +5,8 @@ import UserModal from "./UserModal";
 import UserModel from "./UserModal";
 import { IUser } from "./UserType";
 import { IUserHouse } from "./HouseType";
+import {IReview} from "./ReviewsType";
+
 import DataTable from "react-data-table-component";
 import {BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, 
     BsListCheck, BsMenuButtonWideFill, BsFillGearFill, BsChatFill, BsPhoneFill, BsBook,
@@ -146,6 +148,48 @@ const UserList = (props: Props) => {
   })}
   
 
+</table>
+
+<br />
+<br />
+<br />
+
+<article>
+        <h3 className="list-header">REVIEWS & RATINGS</h3>
+</article>
+
+<br/>
+<br/>
+<br/>
+
+<table>
+  <tr>
+    <th>Rating</th>
+    <th>Reviews Description</th>
+    <th>Reviewed By</th>
+    <th>Actions</th>
+  </tr>
+  {list.map((review) => {
+    console.log(review);
+    return(
+        <tr key={review.id}>
+            <td>{`${review.firstName} ${review.lastName}`}</td>
+            <td>{review.email}</td>
+            <td>{review.phoneno}</td>
+            <td>{review.dob}</td>
+            <td>
+                <div>
+                    <input type="button" className="view-button" id="view-view" value="VIEW" onClick={() => viewUser(review)} />
+                    <input type="button" className="edit-button" value="EDIT" onClick={() => onEdit(review)} />
+                    <input type="button" className="delete-button" value="DELETE" onClick={() => onDeleteClickHnd(review)} />
+                    
+                </div>
+            </td>
+        </tr>
+    );
+  })}
+  
+  
 </table>
 
 {showModal && dataToShow !== null && ( 

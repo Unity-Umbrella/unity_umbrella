@@ -127,7 +127,7 @@ const Crud = () => {
                 {shownPage === PageEnum.list || shownPage === PageEnum.listHouse ?
                     <>
                         <input type="button" value="ADD USER" className="add-user-btn" onClick={onAddUserClickHnd} />
-                        <input type="button" value="ADD HOUSE DETAILS" className="add-user-btn" onClick={onAddUserClickHndHouse} />
+                        <input type="button" value="ADD HOUSE DETAILS" className="add-house-btn" onClick={onAddUserClickHndHouse} />
 
                         <UserList list={userList} onDeleteClickHnd={deleteUser} onEdit={editUserData}
                             houseList={houseList} onDeleteClickHndHouse={deleteHouse} onEditHouse={editHouseData} />

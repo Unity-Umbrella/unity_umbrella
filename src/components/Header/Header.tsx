@@ -23,7 +23,7 @@ const Header: React.FC = () => {
                 <Button color="inherit" component={Link} to="/Registration">Register</Button>
                 <Button color="inherit" component={Link} to="/admin">Admin</Button>
                 <Button color="inherit" component={Link} to="/dashboard">Dashboard</Button>
-                <Button color="inherit" component={Link} to="/crud">CRUD</Button>
+                <Button color="inherit" component={Link} to="/crud">ADMIN PORTAL</Button>
             </Toolbar>
         </AppBar>
     );

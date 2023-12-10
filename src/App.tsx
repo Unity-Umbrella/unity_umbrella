@@ -9,13 +9,12 @@ import About from "./pages/AboutUs/AboutUs";
 import Chatpg from "./pages/ChatPage/ChatPage";
 import Admin from "./pages/AdminPortal/Admin";
 import Dashboard from "./pages/Dashboard/dashboard";
-import Sidebar from './components/Sidebar/Sidebar';
-import {MultiChatWindow} from 'react-chat-engine-advanced';
 import UserProfile from "./pages/UserProfile/UserProfile";
 import RegistrationPage from './pages/Registration/Registration';
 import ContactUs from './pages/ContactUs/ContactUs';
-import {Table} from '@mui/material';
 import Crud from './pages/Crud/Crud';
+import MyProfile from "./pages/Profile/Profile";
+import VerificationPage from "./pages/Verification/Verification";
 
 function App() {
     return (
@@ -33,6 +32,7 @@ function App() {
                 <Route path="/admin" element={<Admin/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/crud" element={<Crud/>}/>
+                <Route path="/verify" element={<VerificationPage/>}/>
                 {/* Add more routes as needed */}
             </Routes>
 

@@ -43,7 +43,7 @@ export class UserUseCase {
         switch (sortBy) {
             case StudentFilter.College:
                 usersList.sort((a, b) => {
-                    return a.campus.collegeId > b.campus.collegeId ? 1 : -1
+                    return a.collegeId > b.collegeId ? 1 : -1
                 });
                 break;
             case StudentFilter.Email:
@@ -70,13 +70,13 @@ export class UserUseCase {
         return usersList;
     }
 
-    async filterUser(selectedValues: string[]): Promise<User[]> {
+    async filterUser(selectedValues: string[],id: number): Promise<User[]> {
         let userList = <User[]>[...UserUseCase.students];
 
         return userList.filter(user => {
             for (const filter of selectedValues) {
                 console.log(filter);
-                if (filter == user.college.collegeName) return true;
+                if (id === user.collegeId) return true;
                 else return false;
             }
             return true;

@@ -11,27 +11,32 @@ export class User {
     private _email: string;
     private _password: string;
     private _image: string;
-    private _college: College;
-    private _location: Location;
-    private _campus: Campus;
+    private _collegeId: number;
+    private _locationId: number;
+    private _campusId: number;
     private _ratings: number;
+    private _verified: number;
+    private _studentNumber: number;
+    private _collegeEmail: string;
 
 
-    constructor(userId: number, firstName: string, lastName: string, phoneNumber: number, dateOfBirth: string, email: string, password: string, image: string, college: College, location: Location, campus: Campus, ratings: number) {
+    constructor(userId: number, firstName: string, lastName: string, phoneNumber: number, dateOfBirth: string, email: string, password: string, image: string, collegeId: number, locationId: number, campusId: number, ratings: number, verified: number, studentNumber: number, collegeEmail: string) {
         this._userId = userId;
         this._firstName = firstName;
         this._lastName = lastName;
         this._phoneNumber = phoneNumber;
         this._dateOfBirth = dateOfBirth;
-        this._image = image;
         this._email = email;
         this._password = password;
-        this._college = college;
-        this._location = location;
-        this._campus = campus;
+        this._image = image;
+        this._collegeId = collegeId;
+        this._locationId = locationId;
+        this._campusId = campusId;
         this._ratings = ratings;
+        this._verified = verified;
+        this._studentNumber = studentNumber;
+        this._collegeEmail = collegeEmail;
     }
-
 
     get userId(): number {
         return this._userId;
@@ -85,28 +90,28 @@ export class User {
         this._password = value;
     }
 
-    get college(): College {
-        return this._college;
+    get collegeId(): number {
+        return this._collegeId;
     }
 
-    set college(value: College) {
-        this._college = value;
+    set collegeId(value: number) {
+        this._collegeId = value;
     }
 
-    get location(): Location {
-        return this._location;
+    get locationId(): number {
+        return this._locationId;
     }
 
-    set location(value: Location) {
-        this._location = value;
+    set locationId(value: number) {
+        this._locationId = value;
     }
 
-    get campus(): Campus {
-        return this._campus;
+    get campusId(): number {
+        return this._campusId;
     }
 
-    set campus(value: Campus) {
-        this._campus = value;
+    set campusId(value: number) {
+        this._campusId = value;
     }
 
     get image(): string {
@@ -126,43 +131,54 @@ export class User {
         this._ratings = value;
     }
 
+
+    get verified(): number {
+        return this._verified;
+    }
+
+    set verified(value: number) {
+        this._verified = value;
+    }
+
+    get studentNumber(): number {
+        return this._studentNumber;
+    }
+
+    set studentNumber(value: number) {
+        this._studentNumber = value;
+    }
+
+    get collegeEmail(): string {
+        return this._collegeEmail;
+    }
+
+    set collegeEmail(value: string) {
+        this._collegeEmail = value;
+    }
+
     toJson(): string {
         return JSON.stringify({
-            userId: this._userId,
-            firstName: this._firstName,
-            lastName: this._lastName,
-            phoneNumber: this._phoneNumber,
-            dateOfBirth: this._dateOfBirth,
-            email: this._email,
-            password: this._password,
-            image: this._image,
-            college: this._college.toJson(),
-            location: this._location.toJson(),
-            campus: this._campus.toJson(),
-            ratings: this._ratings
+            user_id: this._userId,
+            user_firstName: this._firstName,
+            user_lastName: this._lastName,
+            user_phoneNumber: this._phoneNumber,
+            user_dob: this._dateOfBirth,
+            user_email: this._email,
+            user_password: this._password,
+            user_image: this._image,
+            FK_colleges_college_id: this._collegeId,
+            FK_locations_location_id: this._locationId,
+            FK_campuses_campus_id: this._campusId,
+            ratings: this._ratings,
+            user_verified: this._verified,
+            user_studentNumber: this._studentNumber,
+            user_collegeEmail: this._collegeEmail,
         });
     }
 
     static fromJson(jsonString: string): User {
         const obj = JSON.parse(jsonString);
-        const college = College.fromJson(JSON.stringify(obj.college));
-        const location = Location.fromJson(JSON.stringify(obj.location));
-        const campus = Campus.fromJson(JSON.stringify(obj.campus));
-
-        return new User(
-            obj.userId,
-            obj.firstName,
-            obj.lastName,
-            obj.phoneNumber,
-            obj.dateOfBirth,
-            obj.image,
-            obj.email,
-            obj.password,
-            college,
-            location,
-            campus,
-            obj.ratings,
-        );
+        return new User(obj.user_id, obj.user_firstName, obj.user_lastName, obj.user_phoneNumber, obj.user_dob, obj.user_email, obj.user_password, obj.user_image, obj.FK_colleges_college_id, obj.FK_locations_location_id, obj.FK_campuses_campus_id, 3, obj.user_verified, obj.user_studentNumber, obj.user_collegeEmail,);
     }
 
     toString(): string {
@@ -173,9 +189,9 @@ export class User {
         Date of Birth: ${this._dateOfBirth}
         Email: ${this._email}
         Image: ${this._image}
-        College: ${this._college.toString()}
-        Location: ${this._location.toString()}
-        Campus: ${this._campus.toString()}
+        College: ${this._collegeId.toString()}
+        Location: ${this._locationId.toString()}
+        Campus: ${this._campusId.toString()}
         Ratings: ${this._ratings}`;
     }
 }

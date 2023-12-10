@@ -1,29 +1,22 @@
 import * as React from 'react';
-import {alpha} from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import {visuallyHidden} from '@mui/utils';
 import {User} from "../../domain/models/user";
 import {useEffect, useState} from "react";
 import {UserUseCase} from "../../usecases/UserUseCase";
 import Header from "../../components/Header/Header";
+import {College} from "../../domain/models/college";
+import {Avatar, Card, CardContent, Chip, Grid, Rating, Stack} from "@mui/material";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 interface Data {
     id: number;
@@ -202,13 +195,43 @@ export default function EnhancedTable() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [students, setStudents] = useState<User[]>([]);
+    const [colleges, setColleges] = useState<College[]>([]);
     const userUseCase = new UserUseCase();
     const fetchUsers = async () => {
         const studentsList = await userUseCase.getAllUsers();
         setStudents(studentsList);
     }
+    const fetchColleges = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/api/colleges/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Colleges not fetched');
+            }
+            const data = await response.json();
+            const fetchedColleges: College[] = [];
+            console.log(data);
+            let i = data.data.recordset.length - 1;
+            while (i >= 0) {
+                fetchedColleges.push(College.fromJson(JSON.stringify({
+                    college_id: data.data.recordset[i].college_id,
+                    college_name: data.data.recordset[i].college_name
+                })));
+                i--;
+            }
+            console.log(fetchedColleges);
+            setColleges(fetchedColleges);
+        } catch (error) {
+            // setError('Invalid email or password');
+        }
+    }
     useEffect(() => {
         fetchUsers().then(r => true);
+        fetchColleges().then(r => true);
     }, []);
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -252,88 +275,50 @@ export default function EnhancedTable() {
 
     const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
-    // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - students.length) : 0;
 
-    // const visibleRows = React.useMemo(
-    //     () =>
-    //         stableSort(students, getComparator(order, orderBy)).slice(
-    //             page * rowsPerPage,
-    //             page * rowsPerPage + rowsPerPage,
-    //         ),
-    //     [order, orderBy, page, rowsPerPage],
-    // );
 
+    const getCollegeName = (collegeId: number) => {
+        const rightCollege = colleges.find((college) => college.collegeId == collegeId);
+        return rightCollege ? rightCollege.collegeName : "Conestoga College";
+    }
     return (
+
         <>
-            <div>
-                <Header/>
+            <Header/>
+            <br/>
+            <br/>
+            <Grid container spacing={3}>
+                {students.map((user) => (
+                    <Grid item key={user.userId} xs={12} sm={6} md={4} lg={3}>
+                        <Card>
+                            <CardContent style={{display: 'flex', alignItems: 'center'}}>
+                                <Avatar
+                                    alt={user.firstName}
+                                    src={user.image}
+                                    sx={{width: 100, height: 100, marginBottom: 2}}
+                                />
+                                <div style={{marginLeft: '10px'}}>
+                                    <Stack direction="row" spacing={2} justifyContent="space-between"
+                                           alignItems="center">
+                                        <Typography variant="h6" gutterBottom>
+                                            {user.firstName} {user.lastName}
+                                        </Typography>
+                                        {user.verified ?
+                                            <Chip icon={<CheckCircleOutlineIcon/>} label="Verified" size="small" color="primary"/> : ""}
 
-            </div>
-            <Box sx={{width: '100%'}}>
-                <Paper sx={{width: '100%', mb: 2}}>
-                    <EnhancedTableToolbar numSelected={selected.length}/>
-                    <TableContainer>
-                        <Table
-                            sx={{minWidth: 750}}
-                            aria-labelledby="tableTitle"
-                            size='medium'
-                        >
-                            <EnhancedTableHead
-                                numSelected={selected.length}
-                                order={order}
-                                orderBy={orderBy}
-                                onRequestSort={handleRequestSort}
-                                rowCount={students.length}
-                                onSelectAllClick={onSelectAllClick}/>
-                            <TableBody>
-                                {students.map((row, index) => {
-                                    const isItemSelected = isSelected(row.userId);
-                                    const labelId = `enhanced-table-checkbox-${index}`;
-
-                                    return (
-                                        <TableRow
-                                            hover
-                                            onClick={(event) => handleClick(event, row.userId)}
-                                            role="checkbox"
-                                            aria-checked={isItemSelected}
-                                            tabIndex={-1}
-                                            key={row.userId}
-                                            selected={isItemSelected}
-                                            sx={{cursor: 'pointer'}}
-                                        >
-
-                                            <TableCell
-                                                component="th"
-                                                id={labelId}
-                                                scope="row"
-                                                padding="none"
-                                            >
-                                                {row.firstName + " " + row.lastName}
-                                            </TableCell>
-                                            <TableCell align="right">{row.email}</TableCell>
-                                            <TableCell align="right">{row.college.collegeName}</TableCell>
-                                            <TableCell align="right">{row.campus.campusName}</TableCell>
-                                            <TableCell align="right">{row.ratings}</TableCell>
-                                        </TableRow>
-                                    );
-                                })}
-
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        count={students.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </Paper>
-            </Box>
+                                    </Stack>
+                                    <Typography variant="body2" color="textSecondary" gutterBottom>
+                                        {getCollegeName(user.collegeId)}
+                                    </Typography>
+                                    <Rating value={user.ratings} precision={0.5} readOnly/>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
         </>
     );
 }

@@ -33,6 +33,7 @@ const Header: React.FC = () => {
     { text: 'Admin', link: '/admin' },
     { text: 'Dashboard', link: '/dashboard' },
     { text: 'CRUD', link: '/crud' },
+    {text: 'Verify',link: '/verify'}
   ];
 
   return (

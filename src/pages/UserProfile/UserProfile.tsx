@@ -60,10 +60,10 @@ const UserProfile: React.FC = () => {
                         <Typography variant="body1">Email: {user.email}</Typography>
                         <Typography variant="body1">Phone Number: {user.phoneNumber}</Typography>
                         <Typography variant="body1">Date of Birth: {user.dateOfBirth}</Typography>
-                        <Typography variant="body1">College: {user.college.collegeName}</Typography>
-                        <Typography
-                            variant="body1">Location: {user.location.city + ", " + user.location.country}</Typography>
-                        <Typography variant="body1">Campus: {user.campus.campusName}</Typography>
+                        {/*<Typography variant="body1">College: {user.collegeId.collegeName}</Typography>*/}
+                        {/*<Typography*/}
+                        {/*    variant="body1">Location: {user.locationId.city + ", " + user.locationId.country}</Typography>*/}
+                        {/*<Typography variant="body1">Campus: {user.campusId.campusName}</Typography>*/}
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="h5">User Rating</Typography>

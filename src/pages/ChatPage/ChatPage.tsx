@@ -5,13 +5,14 @@ import Footer from "../../components/Footer/Footer";
 import {MultiChatWindow, useMultiChatLogic, MultiChatSocket} from 'react-chat-engine-advanced';
 
 //server
-const projectId: string = '56d25bbb-a788-4834-a839-3a7f00b5b7a3'
-const username: string = 'Richi'
-const secret: string = '12345'
+const projectID='e2c0dc36-07ad-4ab5-b288-45ff3931ac4c'
+const userName='Bhumil73'
+const userSecret='3d58ca02-2855-472e-a761-eddad1ccce52'
+
 
 function Chatpg() {
     //logic
-    const chatProps = useMultiChatLogic(projectId, username, secret)
+    const chatProps = useMultiChatLogic(projectID, userName, userSecret)
     return (
         <>
             <div>

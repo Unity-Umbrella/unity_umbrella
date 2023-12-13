@@ -16,10 +16,10 @@ export class House {
     private _longitude: string;
     private _latitude: string;
     private _image: string;
-    private _location: Location;
+    private _locationId: number;
 
 
-    constructor(houseId: number, owner: string, houseNumber: string, street: string, postalCode: string, price: number, bedroomCount: number, washroomCount: number, description: string, hydro: boolean, water: boolean, heat: boolean, longitude: string, latitude: string, image: string, location: Location) {
+    constructor(houseId: number, owner: string, houseNumber: string, street: string, postalCode: string, price: number, bedroomCount: number, washroomCount: number, description: string, hydro: boolean, water: boolean, heat: boolean, longitude: string, latitude: string, image: string, locationId: number) {
         this._houseId = houseId;
         this._owner = owner;
         this._houseNumber = houseNumber;
@@ -34,7 +34,7 @@ export class House {
         this._heat = heat;
         this._longitude = longitude;
         this._latitude = latitude;
-        this._location = location;
+        this._locationId = locationId;
         this._image = image;
     }
 
@@ -146,12 +146,12 @@ export class House {
         this._latitude = value;
     }
 
-    get location(): Location {
-        return this._location;
+    get location(): number {
+        return this._locationId;
     }
 
-    set location(value: Location) {
-        this._location = value;
+    set location(value: number) {
+        this._locationId = value;
     }
 
     get image(): string {
@@ -162,46 +162,46 @@ export class House {
         this._image = value;
     }
 
-    static fromJson(json: any): House {
-        const location = Location.fromJson(JSON.stringify(json.location));// Assuming Location also has a fromJson method
-        return new House(
-            json.houseId,
-            json.owner,
-            json.houseNumber,
-            json.street,
-            json.postalCode,
-            json.price,
-            json.bedroomCount,
-            json.washroomCount,
-            json.description,
-            json.hydro,
-            json.water,
-            json.heat,
-            json.longitude,
-            json.latitude,
-            json.image,
-            location
+    static fromJson(json: string): House {
+        const obj = JSON.parse(json);
+         return new House(
+             obj.house_id,
+             obj.house_owner,
+             obj.house_number,
+             obj.house_street,
+             obj.house_postalCode,
+             obj.house_price,
+             obj.house_bedroomCount,
+             obj.house_washroomCount,
+             obj.house_description,
+             obj.house_utilities_hydro,
+             obj.house_utilities_water,
+             obj.house_utilities_heat,
+             obj.house_longitude,
+             obj.house_latitude,
+             obj.house_image,
+             obj.FK_location_location_id
         );
     }
 
     toJson(): any {
         return {
-            houseId: this.houseId,
-            owner: this.owner,
-            houseNumber: this.houseNumber,
-            street: this.street,
-            postalCode: this.postalCode,
-            price: this.price,
-            bedroomCount: this.bedroomCount,
-            washroomCount: this.washroomCount,
-            description: this.description,
-            hydro: this.hydro,
-            water: this.water,
-            heat: this.heat,
-            longitude: this.longitude,
-            latitude: this.latitude,
-            image: this.image,
-            location: this.location.toJson()
+            house_id: this.houseId,
+            house_owner: this.owner,
+            house_number: this.houseNumber,
+            house_street: this.street,
+            house_postalCode: this.postalCode,
+            house_price: this.price,
+            house_bedroomCount: this.bedroomCount,
+            house_washroomCount: this.washroomCount,
+            house_description: this.description,
+            house_utilities_hydro: this.hydro,
+            house_utilities_water: this.water,
+            house_utilities_heat: this.heat,
+            house_longitude: this.longitude,
+            house_latitude: this.latitude,
+            house_image: this.image,
+            FK_location_location_id: this.location
         };
     }
 

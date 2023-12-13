@@ -1,6 +1,5 @@
 import React from 'react';
 import {Card, CardContent,Container, Typography, Button, Paper,Grid} from '@mui/material';
-
 import Footer from "../../components/Footer/Footer";
 import {styled} from '@mui/system';
 import AppBar from '@mui/material/AppBar';
@@ -49,7 +48,7 @@ function Home() {
     return (
         <>
             {UserData.getUserId() == "" || UserData.getUserId() == "undefined" ?
-                <AppBar position="static" style={{backgroundColor: colors.primary}}>
+                <AppBar position="static" style={{backgroundColor: colors.black}}>
                     <Toolbar>
                         <img src="images/logoD.jpg" alt="Your Logo"
                              style={{marginRight: '10px', width: '10vh', height: '10vh'}}/>

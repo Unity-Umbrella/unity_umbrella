@@ -52,7 +52,7 @@ const Header: React.FC = () => {
     return true;
   });
   return (
-    <AppBar position="static" style={{ backgroundColor: colors.primary }}>
+    <AppBar position="static" style={{ backgroundColor: colors.black }}>
         <Toolbar>
         <img src="images/logoD.png" alt="Your Logo" style={{ marginRight: '10px', width: '7vh', height:'7vh'}} />
 

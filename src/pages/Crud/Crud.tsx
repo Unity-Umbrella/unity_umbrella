@@ -141,10 +141,10 @@ const Crud = () => {
 
     return (
         <>
-            {/* <div>
+             <div>
                 <Header/>
 
-            </div> */}
+            </div>
  
 
             <section className="section-content">

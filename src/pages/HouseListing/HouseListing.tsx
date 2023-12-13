@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {House} from "../../domain/models/houses";
 import {HouseUseCase} from "../../usecases/HouseUseCase";
-import {Avatar, ButtonBase,Dialog,DialogContent, Grid, Paper, styled, Typography} from "@mui/material";
+import {Avatar, ButtonBase, Dialog, DialogContent, Grid, Paper, styled, Typography} from "@mui/material";
 import Header from "../../components/Header/Header";
+import {Location} from "../../domain/models/location";
 
 const HouseListing: React.FC = () => {
     const [houses, setHouses] = useState<House[]>([]);
     const [selectedHouse, setSelectedHouse] = useState<House | null>(null);
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [locations, setLocations] = useState<Location[]>([]);
     const houseUseCase = new HouseUseCase();
 
     const fetchHouses = async () => {
@@ -16,6 +18,7 @@ const HouseListing: React.FC = () => {
     }
     useEffect(() => {
         fetchHouses().then(r => true);
+        getLocations().then(r => true);
     }, []);
 
     const handleHouseClick = (house: House) => {
@@ -33,14 +36,44 @@ const HouseListing: React.FC = () => {
         maxWidth: '100%',
         maxHeight: '100%',
     });
+    const getLocations = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/api/location/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Locations not fetched');
+            }
+            const data = await response.json();
+            const fetchedLocations: Location[] = [];
+            for (let i = 0; i < data.data.recordset.length; i++) {
+                fetchedLocations.push(Location.fromJson(JSON.stringify({
+                    location_id: data.data.recordset[i].location_id,
+                    location_city: data.data.recordset[i].location_city,
+                    location_country: data.data.recordset[i].location_country,
+                })));
+                setLocations(fetchedLocations);
+            }
+        } catch (error) {
+            // setError('Invalid email or password');
+        }
+    }
+
+    const getLocationById = (locationId: number) => {
+        const rightLocation = locations.find((location) => location.locationId == locationId);
+        return rightLocation ? rightLocation.city + ", " + rightLocation.country : "Canada";
+    }
     return <>
         <Header/>
         <br></br>
         <br></br>
         <br></br>
         <br></br>
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 2, md: 3 }}>
-            {houses.map((house,index) => 
+        <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 1, sm: 2, md: 3}}>
+            {houses.map((house, index) =>
                 <>
                     <Paper
                         key={house.houseId}
@@ -53,9 +86,9 @@ const HouseListing: React.FC = () => {
                                 theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
                         }}
                     >
-                        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                        <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
                             <Grid item xs={2} sm={4} md={4} key={index}>
-                                <ButtonBase sx={{width: 128, height: 128}}  onClick={() => handleHouseClick(house)}>
+                                <ButtonBase sx={{width: 128, height: 128}} onClick={() => handleHouseClick(house)}>
                                     <Img alt="complex" src={house.image}/>
                                 </ButtonBase>
                             </Grid>
@@ -66,7 +99,7 @@ const HouseListing: React.FC = () => {
                                             {house.houseNumber + " " + house.street}
                                         </Typography>
                                         <Typography variant="body2" gutterBottom>
-                                            {house.location.city + ", " + house.location.country}
+                                            {getLocationById(house.location)}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {house.description}
@@ -104,9 +137,9 @@ const HouseListing: React.FC = () => {
                             <Typography>Owner: {selectedHouse.owner}</Typography>
                             <Typography>Price: ${selectedHouse.price}</Typography>
                             <Typography>
-                                Location: {selectedHouse.location.city}, {selectedHouse.location.country}
+                                Location: {getLocationById(selectedHouse.location)}
                             </Typography>
-                            <Typography>Address:  {selectedHouse.houseNumber}, {selectedHouse.street} ,{selectedHouse.postalCode}</Typography>
+                            <Typography>Address: {selectedHouse.houseNumber}, {selectedHouse.street} ,{selectedHouse.postalCode}</Typography>
                             <Typography>Bedrooms: {selectedHouse.bedroomCount}</Typography>
                             <Typography>Washrooms: {selectedHouse.washroomCount}</Typography>
                             <Typography>Description: {selectedHouse.description}</Typography>
@@ -122,7 +155,6 @@ const HouseListing: React.FC = () => {
                 </DialogContent>
             </Dialog>
         </>
-
 
 
     </>

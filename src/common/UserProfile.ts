@@ -1,10 +1,10 @@
+import {useNavigate} from "react-router-dom";
 
 const UserData = (function () {
     let userId = "";
     let firstName = "";
     let lastName = "";
     let accessType = "";
-
     const getName = function () {
         if (firstName == "" && lastName == "") {
             firstName = localStorage.getItem("firstName") ?? "";

@@ -22,6 +22,44 @@ export class UserRepository {
     //TODO: implement the error methods or return a interface for success or failure
     async getAllUsers(): Promise<User[]> {
         await this.login();
+        try {
+            const response = await fetch('http://localhost:3001/api/user/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Users not fetched');
+            }
+            const data = await response.json();
+            const fetchedUsers: User[] = [];
+            let i = 0;
+            while (i < data.data.recordset.length) {
+                const thisUser = data.data.recordset[i];
+                fetchedUsers.push(User.fromJson(JSON.stringify({
+                    user_id: thisUser.user_id,
+                    user_firstName: thisUser.user_firstName,
+                    user_lastName: thisUser.user_lastName,
+                    user_phoneNumber: thisUser.user_phoneNumber,
+                    user_dob: thisUser.user_dob,
+                    user_email: thisUser.user_email,
+                    user_password: thisUser.user_password,
+                    user_image: thisUser.user_image,
+                    FK_colleges_college_id: thisUser.FK_colleges_college_id,
+                    FK_locations_location_id: thisUser.FK_locations_location_id,
+                    FK_campuses_campus_id: thisUser.FK_campuses_campus_id,
+                    ratings: thisUser.ratings,
+                    user_verified: thisUser.user_verified,
+                    user_studentNumber: thisUser.user_studentNumber,
+                    user_collegeEmail: thisUser.user_collegeEmail,
+                })));
+                i++;
+            }
+            return fetchedUsers;
+        } catch (error) {
+            // setError('Invalid email or password');
+        }
         return this.apiService.fetchAllUsers();
     }
 

@@ -12,6 +12,7 @@
 
 import "./UserModal.style.css";
 import { IUserHouse } from "./HouseType";
+import React from "react";
 
 type Props ={
     onClose: () => void;
@@ -21,6 +22,7 @@ type Props ={
 const HouseModal = (props: Props) => {
     const {onClose, data} = props
     return (
+    <>
         <div id="myModal" className="modal">
             <div className="modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
@@ -71,7 +73,7 @@ const HouseModal = (props: Props) => {
                 </div>
             </div>
         </div>
-    );
+        </>);
 };
 
 export default HouseModal;

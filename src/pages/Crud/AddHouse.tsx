@@ -2,6 +2,7 @@
 import { useState } from "react";
 import "./UserForm.style.css";
 import { IUserHouse } from "./HouseType";
+import React from "react";
 
 type Props ={
     onBackBtnClickHndHouse : () => void;
@@ -197,6 +198,7 @@ const AddHouse = (props: Props) => {
 
     
     return (
+        <>
     <body>
      
     <div className="form-container"> 
@@ -272,7 +274,7 @@ const AddHouse = (props: Props) => {
     <div id="errorMessages"></div>
 
     </body>
-    
+    </>
     );
 };
 

@@ -141,15 +141,11 @@ const Crud = () => {
 
     return (
         <>
-            <div>
+            {/* <div>
                 <Header/>
 
-            </div>
-        <article className="article-header">
-            <header>
-                <h1>Unity Umbrella</h1>
-            </header> */}
-            </article>
+            </div> */}
+ 
 
             <section className="section-content">
                 {shownPage === PageEnum.list || shownPage === PageEnum.listHouse ?

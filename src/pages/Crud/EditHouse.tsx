@@ -15,6 +15,7 @@
 import { useState } from "react";
 import "./UserForm.style.css";
 import { IUserHouse } from "./HouseType";
+import React from "react";
 
 type Props ={
     data : IUserHouse;
@@ -213,6 +214,7 @@ const EditHouse = (props: Props) => {
 
     
     return (
+        <>
     <body>
      
     <div className="form-container"> 
@@ -288,6 +290,7 @@ const EditHouse = (props: Props) => {
     <div id="errorMessages"></div>
 
     </body>
+    </>
     
     );
 };

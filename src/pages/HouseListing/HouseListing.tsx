@@ -8,8 +8,6 @@ const HouseListing: React.FC = () => {
     const [houses, setHouses] = useState<House[]>([]);
     const [selectedHouse, setSelectedHouse] = useState<House | null>(null);
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [selectedHouse, setSelectedHouse] = useState<House | null>(null);
-    const [dialogOpen, setDialogOpen] = useState(false);
     const houseUseCase = new HouseUseCase();
 
     const fetchHouses = async () => {
@@ -42,7 +40,7 @@ const HouseListing: React.FC = () => {
         <br></br>
         <br></br>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 2, md: 3 }}>
-            {houses.map((house,index) => (
+            {houses.map((house,index) => 
                 <>
                     <Paper
                         key={house.houseId}
@@ -57,7 +55,6 @@ const HouseListing: React.FC = () => {
                     >
                         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                             <Grid item xs={2} sm={4} md={4} key={index}>
-                                <ButtonBase sx={{width: 128, height: 128}}  onClick={() => handleHouseClick(house)}>
                                 <ButtonBase sx={{width: 128, height: 128}}  onClick={() => handleHouseClick(house)}>
                                     <Img alt="complex" src={house.image}/>
                                 </ButtonBase>
@@ -85,7 +82,7 @@ const HouseListing: React.FC = () => {
                         </Grid>
                     </Paper>
                 </>
-            ))}
+            )};
         </Grid>
         <>
             <Dialog open={dialogOpen} onClose={handleDialogClose}>

@@ -39,7 +39,7 @@ const Header: React.FC = () => {
   return (
     <AppBar position="static" style={{ backgroundColor: colors.black }}>
         <Toolbar>
-        <img src="images/logoD.jpg" alt="Your Logo" style={{ marginRight: '10px', width: '5vh', height:'5vh'}} /> 
+        <img src="images/logoD.jpg" alt="Your Logo" style={{ marginRight: '10px', width: '10vh', height:'10vh'}} /><p>UNITY UMBRELLA</p> 
 
         {isSmallScreen ? (
           <>

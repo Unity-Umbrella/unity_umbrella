@@ -2,6 +2,9 @@ import { useState } from "react";
 import "./UserForm.style.css";
 import { IUser } from "./UserType";
 import React from "react";
+import {College} from "../../domain/models/college";
+import {Location} from "../../domain/models/location";
+import {Campus} from "../../domain/models/campus";
 
 type Props ={
     onBackBtnClickHnd : () => void;
@@ -21,6 +24,9 @@ const AddUser = (props: Props) => {
     const [country, setCountry] = useState("");
     const [campus, setCampus] = useState("");
     const [college, setCollege] = useState("");
+    const [colleges, setColleges] = useState({});
+    const [locations, setLocations] = useState({});
+    const [campuses, setCampuses] = useState({});
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
     const { onBackBtnClickHnd, onSubmitClickHnd} = props;
@@ -146,7 +152,87 @@ const AddUser = (props: Props) => {
       }
 
     }
-
+    
+    const getColleges = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/api/colleges/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Colleges not fetched');
+            }
+            const data = await response.json();
+            const fetchedColleges: College[] = [];
+            console.log(data);
+            let i = data.data.recordset.length-1;
+            while(i >= 0){
+                fetchedColleges.push(College.fromJson(JSON.stringify({
+                    college_id: data.data.recordset[i].college_id,
+                    college_name: data.data.recordset[i].college_name
+                })));
+                i--;
+            }
+            console.log(fetchedColleges);
+            setColleges({colleges: fetchedColleges});
+        } catch (error) {
+            // setError('Invalid email or password');
+        }
+    }
+    const getCampuses = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/api/campuses/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Campuses not fetched');
+            }
+            const data = await response.json();
+            const fetchedCampuses : Campus[] = [];
+            for(let i = 0; i< data.data.recordset.length; i++){
+                fetchedCampuses.push(Campus.fromJson(JSON.stringify({
+                    campus_id: data.data.recordset[i].campus_id,
+                    campus_name: data.data.recordset[i].campus_name,
+                    FK_colleges_college_id: data.data.recordset[i].FK_colleges_college_id,
+                    FK_locations_location_id: data.data.recordset[i].FK_locations_location_id
+                })));
+            }
+            console.log(fetchedCampuses);
+            setCampuses({campuses: fetchedCampuses});
+        } catch (error) {
+            // setError('Invalid email or password');
+        }
+    }
+    const getLocations = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/api/location/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Locations not fetched');
+            }
+            const data = await response.json();
+            const fetchedLocations : Location[] = [];
+            for(let i = 0; i< data.data.recordset.length; i++){
+                fetchedLocations.push(Location.fromJson(JSON.stringify({
+                    location_id: data.data.recordset[i].location_id,
+                    location_city: data.data.recordset[i].location_city,
+                    location_country: data.data.recordset[i].location_country,
+                })));
+                setLocations({locations: fetchedLocations});
+            }
+        } catch (error) {
+            // setError('Invalid email or password');
+        }
+    }
     
     return (
     <body>
@@ -193,6 +279,8 @@ const AddUser = (props: Props) => {
                 <label className="required">College : </label>
                 <input type="text" value={college} placeholder="Enter your clg name" onChange={onCollegeChangeHnd} required/>
             </div>
+
+                                           
             <div className="input-box">
                 <input type="button" className="button-container" value="Back" onClick={onBackBtnClickHnd}/>
                 <input type="button" className="button-container" value="Add User" onClick={onsubmitBtnClickHnd}/>

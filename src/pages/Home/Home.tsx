@@ -1,5 +1,6 @@
 import React from 'react';
-import {Container, Typography, Button, Paper} from '@mui/material';
+import {Card, CardContent,Container, Typography, Button, Paper,Grid} from '@mui/material';
+
 import Footer from "../../components/Footer/Footer";
 import {styled} from '@mui/system';
 import AppBar from '@mui/material/AppBar';
@@ -17,14 +18,31 @@ const BannerPaper = styled(Paper)(({theme}) => ({
     marginTop: theme.spacing(2),
 }));
 
-const JoinButton = styled(Button)(({theme}) => ({
-    marginTop: theme.spacing(2),
-    backgroundColor: "#d9ed92",
-    color: "black",
-    fontWeight: "bold"
-}));
 
 
+const bannerStyle = {
+    background: 'linear-gradient(to right, #2196F3, #3F51B5)',
+    color: '#fff',
+    padding: '64px 0',
+    textAlign: 'center',
+  };
+
+  const bannerContentStyle = {
+    maxWidth: '800px',
+    margin: 'auto',
+  };
+
+  const imageStyle = {
+    maxWidth: '100%',
+    height: 'auto',
+    borderRadius: '8px', // Optional: Add rounded corners
+  };
+
+  const learnMoreButtonStyle = {
+    marginTop: '16px',
+    color: '#fff',
+    borderColor: '#fff',
+  };
 function Home() {
     const navigate = useNavigate();
     console.log(UserData.getUserId());
@@ -34,9 +52,9 @@ function Home() {
                 <AppBar position="static" style={{backgroundColor: colors.black}}>
                     <Toolbar>
                         <img src="images/logoD.jpg" alt="Your Logo"
-                             style={{marginRight: '10px', width: '5vh', height: '5vh'}}/>
+                             style={{marginRight: '10px', width: '10vh', height: '10vh'}}/>
                         <Typography variant="h6" component="div">
-                            Unity Umbrella
+                           UNITY UMBRELLA
                         </Typography>
                     </Toolbar>
                 </AppBar> : <Header/>}
@@ -44,15 +62,15 @@ function Home() {
 
             <section id='main'>
                 <div className="header">
-                    <Paper style={{position: 'relative',}}>
-                        {/* Image */}
+                    {/* <Paper style={{position: 'relative',}}>
+                       
                         <img
                             src="images/hbanner.jpeg" // Replace with the actual path to your image
                             alt="Banner Image"
                             style={{width: '90%', height: '13%', display: 'block'}}
                         />
 
-                        {/* Content */}
+                        
                         <div style={{
                             position: 'absolute',
                             top: '55%',
@@ -77,39 +95,39 @@ function Home() {
                                 Join Now
                             </Button>
                         </div>
-                    </Paper>
-                    {/* <Container maxWidth="lg"> */}
-                    {/* <Grid container spacing={2} alignItems="center">
-                        <img src='images/hbanner.jpeg' alt="Header Image" width="100%" /> */}
-                    {/* <Grid item xs={12} sm={6}>
-                                <img src='images/.jpeg' alt="Header Image" width="100%" />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Typography variant="h3" component="h5">
-                                    We Connect Student to Student
-                                </Typography> */}
-                    {/* </Grid> */}
-                    {/* </Grid> */}
-
-                    {/* </Container> */}
+                    </Paper> */}
+       
+       <Container>
+        <Grid container  alignItems="left" marginLeft={1} columnSpacing={10}>
+          <Grid item xs={6} md={4}>
+          <img
+                            src="images/banner.jpg" // Replace with the actual path to your image
+                            alt="Banner Image"
+                            style={{width: '120%', display: 'block'}}
+                        />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography variant="h4" gutterBottom>
+              Welcome to Our Unity Umbrella Community
+            </Typography>
+            <Typography variant="subtitle1" paragraph>
+              CONNECT, LEARN, THRIVE TOGETHER!
+            </Typography>
+            <Typography variant="body1" paragraph>
+              Embark on a journey of connection and discovery with our vibrant international student community.
+              Whether you're navigating a new country, seeking advice, or forming lifelong friendships, you're in the right place!
+            </Typography>
+            <Button variant="outlined" style={learnMoreButtonStyle}>
+              Learn More
+            </Button>
+          </Grid>
+        </Grid>
+      </Container>
+    
 
                 </div>
 
-                {/* <BannerPaper elevation={3}>
-                    <Typography variant="h4">Welcome to Our Unity Umbrella Community!</Typography>
-                    <Typography variant="subtitle1" style={{ marginBottom: '10px' }}>Connect, Learn, Thrive Together!</Typography>
-                    <Typography variant="body1" style={{ marginBottom: '25px' }} paragraph>
-                        Embark on a journey of connection and discovery with our vibrant international student community.
-                        Whether you're navigating a new country, seeking advice, or forming lifelong friendships, you're in the right place!
-                    </Typography>
-                    <JoinButton
-                        variant="contained"
-                        href="#join-link" 
-                        endIcon={<ArrowForwardIcon />}>
-                        Join Now
-                    </JoinButton>
-                </BannerPaper> */}
-                <section id="feature">
+                {/* <section id="feature">
                     <h2> Empowering Your International Student Journey</h2>
                     <div className="maincard">
 
@@ -130,7 +148,31 @@ function Home() {
                         </div>
                     </div>
 
-                </section>
+                </section> */}
+                <Container>
+      <Grid container justifyContent="center">
+        <Grid item>
+          <Card style={{width: '200px',height: '200px',textAlign: 'center',margin: '16px',}}>
+            <CardContent>
+              <Typography variant="h6">Register</Typography>
+              <Button variant="contained" color="primary" onClick={() => navigate("/registration")}>
+                Register
+              </Button>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item>
+          <Card style={{width: '200px',height: '200px',textAlign: 'center',margin: '16px',}}>
+            <CardContent>
+              <Typography variant="h6">Login</Typography>
+              <Button variant="contained" color="primary" onClick={() => navigate("/login")}>
+                Login
+              </Button>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
 
             </section>
 

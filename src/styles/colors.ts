@@ -2,6 +2,8 @@ export const colors = {
     primary: '#184e77',
     secondary: '#1e6091',
     tertiary: '#1a759f',
+    blue:'#168AAD',
+    green:"#4E621A",
     accent: '#168aad',
     button: '#D9ED92',
     shade2: '#52b69a',

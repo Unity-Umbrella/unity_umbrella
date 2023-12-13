@@ -5,6 +5,8 @@ import {colors} from "../../styles/colors";
 import Toolbar from "@mui/material/Toolbar";
 import UserData from "../../common/UserProfile";
 import {useNavigate} from 'react-router-dom';
+import Footer from '../../components/Footer/Footer';
+import { margin } from '@mui/system';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -55,44 +57,15 @@ const LoginPage = () => {
                     borderRadius: '8px',
                     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
                     backgroundColor: '#fff',
-                    padding: '2rem', // Added padding
-                    height: '1000px', // Added height
-                    width: '70%',
+                    padding: '2.15rem', // Added padding
+                    height: '65%', // Added height
+                    width: '80%',
                 }}
             >
                 <Grid container spacing={3}>
-
+        
                     <Grid item xs={12} sm={6}>
-                        <Paper
-                            elevation={3}
-                            style={{
-                                padding: '2rem',
-                                borderRadius: '0 8px 8px 0',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                height: '100%',
-                                boxSizing: 'border-box', // Add this line to include padding in the height calculation
-                            }}
-                        >
-                            <Typography
-                                variant="h2"
-                                component="h1"
-                                gutterBottom
-                                style={{
-                                    fontWeight: 600,
-                                    fontSize: '2.5rem',
-                                    letterSpacing: '0.02em',
-                                    color: '#2196f3',
-                                }}
-                            >
-                                Log In
-                            </Typography>
-                            <Typography variant="subtitle1" style={{marginBottom: '2rem', color: '#555'}}>
-                                Login to sync up your data.
-                            </Typography>
-                            <form onSubmit={handleLogin}>
+                            <form onSubmit={handleLogin} style={{marginTop:'5.5rem'}}>
                                 <TextField
                                     label="Email"
                                     variant="outlined"
@@ -115,7 +88,7 @@ const LoginPage = () => {
                                     variant="contained"
                                     color="primary"
                                     fullWidth
-                                    style={{marginTop: '20px'}}
+                                    style={{marginTop: '3rem',backgroundColor:colors.green,fontSize:'1.25rem'}}
                                 >
                                     Login
                                 </Button>
@@ -126,13 +99,13 @@ const LoginPage = () => {
                                 </Typography>
                             )}
                             <br/>
-                            <Typography variant="body2" style={{color: '#555'}}>
+                            <Typography variant="body2" style={{color: '#555',marginLeft:'3rem'}}>
                                 Don't have an account yet?{' '}
                                 <Link href="/registration" style={{color: '#2196f3', fontWeight: 600}}>
                                     Register here
                                 </Link>
                             </Typography>
-                        </Paper>
+                       
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
@@ -142,7 +115,7 @@ const LoginPage = () => {
                             alt="Registration Image"
                             style={{
                                 width: '100%',
-                                height: '900px',
+                                height: '600px',
                                 borderRadius: '2px',
 
                             }}
@@ -150,6 +123,7 @@ const LoginPage = () => {
                     </Grid>
                 </Grid>
             </Container>
+            <Footer/>
         </>
     );
 }

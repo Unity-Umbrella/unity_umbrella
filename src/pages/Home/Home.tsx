@@ -31,7 +31,7 @@ function Home() {
     return (
         <>
             {UserData.getUserId() == "" || UserData.getUserId() == "undefined" ?
-                <AppBar position="static" style={{backgroundColor: colors.black}}>
+                <AppBar position="static" style={{backgroundColor: colors.primary}}>
                     <Toolbar>
                         <img src="images/logoD.jpg" alt="Your Logo"
                              style={{marginRight: '10px', width: '5vh', height: '5vh'}}/>

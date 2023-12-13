@@ -13,6 +13,7 @@ import { colors } from '../../styles/colors';
 import { Link } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import logo from "../../../public/images/logodesign.svg";
+import UserData from "../../common/UserProfile";
 const Header: React.FC = () => {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -36,10 +37,24 @@ const Header: React.FC = () => {
     {text: 'Verify',link: '/verify'}
   ];
 
+  const filteredMenuItems = menuItems.filter((item) => {
+    if (UserData.getUserId() !== null && UserData.getUserId() !== '') {
+      // If user is logged in (not null or empty string), hide Login and Register links, and show Logout
+      return item.text !== 'Login' && item.text !== 'Register';
+    } else if (UserData.getAccessType() !== 'admin') {
+      // If user is not an admin, hide Admin, Dashboard, and CRUD links
+      return (
+          item.text !== 'Admin' &&
+          item.text !== 'Dashboard' &&
+          item.text !== 'CRUD'
+      );
+    }
+    return true;
+  });
   return (
-    <AppBar position="static" style={{ backgroundColor: colors.black }}>
+    <AppBar position="static" style={{ backgroundColor: colors.primary }}>
         <Toolbar>
-        <img src="images/logoD.jpg" alt="Your Logo" style={{ marginRight: '10px', width: '5vh', height:'5vh'}} /> 
+        <img src="images/logoD.png" alt="Your Logo" style={{ marginRight: '10px', width: '7vh', height:'7vh'}} />
 
         {isSmallScreen ? (
           <>
@@ -73,18 +88,24 @@ const Header: React.FC = () => {
           </>
         ) : (
           <>
-            {menuItems.map((item) => (
-              <Button
-                key={item.text}
-                color="inherit"
-                component={Link}
-                to={item.link}
-              >
-                {item.text}
-              </Button>
+            {filteredMenuItems.map((item) => (
+                <Button
+                    key={item.text}
+                    color="inherit"
+                    component={Link}
+                    to={item.link}
+                >
+                  {item.text}
+                </Button>
             ))}
           </>
         )}
+          {/* Conditionally render Logout button */}
+          {(UserData.getUserId() !== null && UserData.getUserId() !== '') && (
+              <Button color="inherit" onClick={() => UserData.logout()}>
+                Logout
+              </Button>
+          )}
       </Toolbar>
     </AppBar>
   );

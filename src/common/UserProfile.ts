@@ -1,3 +1,4 @@
+
 const UserData = (function () {
     let userId = "";
     let firstName = "";
@@ -39,14 +40,30 @@ const UserData = (function () {
         accessType = aType;
         localStorage.setItem("accessType", accessType);
     }
+    const logout = function () {
+        localStorage.clear();
+        userId = "";
+        firstName = "";
+        lastName = "";
+        accessType = "";
+    }
 
+    const isLoggedIn = function () {
+        console.log(localStorage.getItem("userId"));
+        if (getUserId() != null && getUserId() != "")
+            return true;
+        else return false;
+
+    }
     return {
         getName: getName,
         setName: setName,
         getUserId: getUserId,
         setUserId: setUserId,
         getAccessType: getAccessType,
-        setAccessType: setAccessType
+        setAccessType: setAccessType,
+        logout: logout,
+        isLoggedIn: isLoggedIn
     }
 })();
 
